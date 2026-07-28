@@ -12,6 +12,7 @@ import { WorksSection } from './components/WorksSection';
 import { TextHoverEffect } from './components/TextHoverEffect';
 import { Footer } from './components/Footer';
 import { WorksPage } from './pages/WorksPage';
+import { ServicesPage } from './pages/ServicesPage';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 
 interface SlideData {
@@ -52,7 +53,7 @@ const SLIDES: SlideData[] = [
 
 const MENU_LINKS = [
   { label: 'Home', href: '/' },
-  { label: 'Services', href: '/#services' },
+  { label: 'Services', href: '/services' },
   { label: 'About Us', href: '/#about' },
   { label: 'Portfolio', href: '/works' },
   { label: 'Contact', href: '/#contact' },
@@ -240,6 +241,7 @@ const App: React.FC = () => {
             }
           />
           <Route path="/works" element={<WorksPage />} />
+          <Route path="/services" element={<ServicesPage />} />
         </Routes>
       </main>
     </div>

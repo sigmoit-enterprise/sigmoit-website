@@ -84,7 +84,7 @@ export const ContainerScroll: React.FC<ContainerScrollProps> = ({
   const scale = useTransform(scrollYProgress, [0, 0.45], scaleDimensions());
   const translateHeaderY = useTransform(scrollYProgress, [0, 0.45], [0, -30]);
 
-  // Softnep scroll effect: Translate the screenshot image inside the tablet frame
+  // SigmoIT scroll effect: Translate the screenshot image inside the tablet frame
   const imageY = useTransform(scrollYProgress, [0.15, 0.85], ['0%', '-50%']);
 
   return (
