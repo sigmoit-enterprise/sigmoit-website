@@ -1,5 +1,5 @@
 {
-    "services": {
+    "experimentalServices": {
         "frontend": {
             "root": "frontend",
             "framework": "vite"
@@ -7,21 +7,19 @@
         "backend": {
             "root": "backend",
             "entrypoint": "server.js",
-            "runtime": "node"
+            "framework": "express"
         }
     },
     "rewrites": [
         {
             "source": "/api(/.*)?",
             "destination": {
-                "type": "service",
                 "service": "backend"
             }
         },
         {
             "source": "/(.*)",
             "destination": {
-                "type": "service",
                 "service": "frontend"
             }
         }
