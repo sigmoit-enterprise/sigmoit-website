@@ -8,6 +8,7 @@ import { StatsAndOrganizations } from "./components/StatsAndOrganizations";
 import { ToolsAndTechnologies } from "./components/ToolsAndTechnologies";
 import { ServicesSection } from "./components/ServicesSection";
 import { TalentSection } from "./components/TalentSection";
+import { RequirementSection } from "./components/RequirementSection";
 import { WorksSection } from "./components/WorksSection";
 import { TextHoverEffect } from "./components/TextHoverEffect";
 import { Footer } from "./components/Footer";
@@ -227,6 +228,9 @@ const App: React.FC = () => {
 
                 {/* Talent Discovery CTA Section */}
                 <TalentSection />
+
+                {/* Requirement CTA Section */}
+                <RequirementSection />
 
                 {/* Interactive Brand Wordmark Section */}
                 <section className="relative w-full bg-white border-t border-gray-100 h-[24rem] md:h-[32rem] flex items-center justify-center overflow-hidden">
