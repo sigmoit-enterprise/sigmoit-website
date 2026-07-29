@@ -167,8 +167,14 @@ export const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      <section className="w-full bg-[#f0f4f1] px-6 pb-24 md:pb-32">
-        <div className="mx-auto w-full max-w-[1080px]">
+      <section className="relative w-full overflow-hidden bg-[#f0f4f1] px-6 pb-24 md:pb-32">
+        <div aria-hidden className="pointer-events-none absolute inset-0">
+          <div className="absolute -left-24 top-24 h-72 w-72 rounded-full bg-[#24a556]/25 blur-[90px]" />
+          <div className="absolute right-0 top-1/3 h-80 w-80 rounded-full bg-[#0b3d1f]/15 blur-[100px]" />
+          <div className="absolute bottom-0 left-1/3 h-72 w-72 rounded-full bg-[#24a556]/20 blur-[110px]" />
+        </div>
+
+        <div className="relative z-10 mx-auto w-full max-w-[1080px]">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -196,13 +202,13 @@ export const AboutPage: React.FC = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.4 }}
                   transition={{ duration: 0.6, delay: index * 0.08, ease: 'easeOut' }}
-                  className="group relative flex flex-col rounded-[24px] bg-white p-7 shadow-[0_4px_20px_-6px_rgba(0,0,0,0.08)] transition-shadow duration-500 hover:shadow-[0_14px_34px_-10px_rgba(0,0,0,0.16)]"
+                  className="group relative flex flex-col rounded-[24px] border border-white/60 bg-white/40 p-7 shadow-[0_8px_32px_-8px_rgba(11,61,31,0.14)] backdrop-blur-xl transition-all duration-500 hover:border-white/80 hover:bg-white/55 hover:shadow-[0_16px_40px_-10px_rgba(11,61,31,0.22)]"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#e1ede5] text-[#24a556] transition-colors duration-500 group-hover:bg-[#24a556] group-hover:text-white">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-full border border-white/70 bg-white/60 text-[#24a556] transition-colors duration-500 group-hover:bg-[#24a556] group-hover:text-white">
                       <Icon className="h-5 w-5 stroke-[1.6]" />
                     </span>
-                    <span className="font-sans text-3xl font-bold leading-none text-[#0b3d1f]/10">
+                    <span className="font-sans text-3xl font-bold leading-none text-[#0b3d1f]/20">
                       {String(index + 1).padStart(2, '0')}
                     </span>
                   </div>
