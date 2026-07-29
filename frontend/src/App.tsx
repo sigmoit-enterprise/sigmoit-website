@@ -226,9 +226,6 @@ const App: React.FC = () => {
                 {/* Selected Works Carousel Section */}
                 <WorksSection />
 
-                {/* Talent Discovery CTA Section */}
-                <TalentSection />
-
                 {/* Requirement CTA Section */}
                 <RequirementSection />
 
@@ -246,6 +243,9 @@ const App: React.FC = () => {
                     <TextHoverEffect text="SIGMOIT" />
                   </div>
                 </section>
+
+                {/* Product Build CTA Section */}
+                <TalentSection />
 
                 {/* Corporate Footer Section */}
                 <Footer />

@@ -317,7 +317,7 @@ export const AboutPage: React.FC = () => {
             Sigmoit Hall of Fame
           </motion.h3>
 
-          <ul className="mt-12 grid grid-cols-1 gap-10 sm:grid-cols-2 md:mt-16 md:gap-x-12">
+          <ul className="mx-auto mt-12 grid w-full max-w-[720px] grid-cols-1 gap-10 sm:grid-cols-2 md:mt-16 md:gap-x-12">
             {TEAM.map((member, index) => (
               <motion.li
                 key={member.name}
@@ -331,7 +331,7 @@ export const AboutPage: React.FC = () => {
                 }}
                 className={`group relative ${index % 2 === 1 ? "sm:mt-16" : ""}`}
               >
-                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[24px] bg-[#dfe8e2]">
+                <div className="relative aspect-[5/6] w-full overflow-hidden bg-[#dfe8e2]">
                   {member.image ? (
                     <img
                       src={member.image}

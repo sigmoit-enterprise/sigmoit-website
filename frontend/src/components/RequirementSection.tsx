@@ -45,25 +45,61 @@ const CyclingWord: React.FC = () => {
 
 export const RequirementSection: React.FC = () => {
   return (
-    <section className="w-full min-h-[520px] flex flex-col justify-center items-center overflow-hidden select-none px-6 py-24 bg-[#16803f]">
-      <p className="text-white text-sm sm:text-base font-light tracking-[0.2em] uppercase">
-        Tell Us Your Requirement
-      </p>
-
-      <h2 className="mt-6 font-serif font-bold text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight text-center">
-        <span>We&nbsp;</span>
-        <span className="inline-flex justify-start min-w-[6.5ch] text-left">
-          <CyclingWord />
-        </span>
-      </h2>
-
-      <a
-        href="#contact"
-        className="mt-12 group inline-flex items-center gap-2 px-9 py-4 rounded-lg bg-white hover:bg-white/90 text-[#16803f] font-bold text-sm tracking-wide transition-all duration-300 shadow-lg shadow-black/30"
+    <section className="relative w-full min-h-[520px] flex flex-col justify-center items-center overflow-hidden select-none px-6 py-24 bg-[#16803f]">
+      <svg
+        aria-hidden
+        viewBox="0 0 1440 520"
+        preserveAspectRatio="none"
+        className="pointer-events-none absolute inset-0 h-full w-full"
       >
-        <span>Connect Now</span>
-        <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
-      </a>
+        <path
+          d="M 0,478 C 430,476 660,458 720,260 C 780,62 1010,44 1440,42"
+          fill="none"
+          stroke="white"
+          strokeWidth={2}
+          strokeLinecap="round"
+          vectorEffect="non-scaling-stroke"
+          pathLength={1}
+          strokeDasharray={1}
+          className="opacity-30 animate-sigmoid-draw"
+        />
+      </svg>
+
+      <div className="relative z-10 flex flex-col items-center">
+        <p className="text-white text-sm sm:text-base font-light tracking-[0.2em] uppercase">
+          Tell Us Your Requirement
+        </p>
+
+        <h2 className="mt-6 font-serif font-bold text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight text-center">
+          <span>We&nbsp;</span>
+          <span className="inline-flex justify-start min-w-[6.5ch] text-left">
+            <CyclingWord />
+          </span>
+        </h2>
+
+        <div className="relative mt-12 flex items-center justify-center">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -left-24 -top-16 h-56 w-56 rounded-full bg-[#3b82f6] opacity-40 blur-[70px]"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -right-20 -bottom-16 h-56 w-56 rounded-full bg-[#d9c39a] opacity-45 blur-[70px]"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-8 -bottom-4 h-24 rounded-full bg-[#67e8f9] opacity-20 blur-[60px]"
+          />
+
+          <a
+            href="#contact"
+            className="relative group inline-flex items-center gap-2 rounded-lg border border-white/40 bg-white/10 px-9 py-4 text-sm font-bold tracking-wide text-white shadow-[0_8px_32px_rgba(0,0,0,0.25),inset_0_1px_0_rgba(255,255,255,0.4)] backdrop-blur-xl transition-all duration-300 hover:border-white/60 hover:bg-white/20"
+          >
+            <span>Connect Now</span>
+            <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
+          </a>
+        </div>
+      </div>
     </section>
   );
 };
