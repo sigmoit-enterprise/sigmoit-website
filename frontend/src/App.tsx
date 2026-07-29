@@ -1,19 +1,20 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import { Sidebar } from './components/Sidebar';
-import { HeroSlider } from './components/HeroSlider';
-import { HeroContent } from './components/HeroContent';
-import { SearchOverlay } from './components/SearchOverlay';
-import { StatsAndOrganizations } from './components/StatsAndOrganizations';
-import { ToolsAndTechnologies } from './components/ToolsAndTechnologies';
-import { ServicesSection } from './components/ServicesSection';
-import { TalentSection } from './components/TalentSection';
-import { WorksSection } from './components/WorksSection';
-import { TextHoverEffect } from './components/TextHoverEffect';
-import { Footer } from './components/Footer';
-import { WorksPage } from './pages/WorksPage';
-import { ServicesPage } from './pages/ServicesPage';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
+import React, { useState, useEffect, useRef } from "react";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import { Sidebar } from "./components/Sidebar";
+import { HeroSlider } from "./components/HeroSlider";
+import { HeroContent } from "./components/HeroContent";
+import { SearchOverlay } from "./components/SearchOverlay";
+import { StatsAndOrganizations } from "./components/StatsAndOrganizations";
+import { ToolsAndTechnologies } from "./components/ToolsAndTechnologies";
+import { ServicesSection } from "./components/ServicesSection";
+import { TalentSection } from "./components/TalentSection";
+import { WorksSection } from "./components/WorksSection";
+import { TextHoverEffect } from "./components/TextHoverEffect";
+import { Footer } from "./components/Footer";
+import { WorksPage } from "./pages/WorksPage";
+import { ServicesPage } from "./pages/ServicesPage";
+import { AboutPage } from "./pages/AboutPage";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 
 interface SlideData {
   id: number;
@@ -27,36 +28,39 @@ interface SlideData {
 const SLIDES: SlideData[] = [
   {
     id: 1,
-    image: '/slide1.png',
-    titlePrefix: 'Top',
-    titleHighlight: 'IT Company',
-    titleSuffix: 'in Nepal for digital marketing',
-    description: 'We partner with you to tell your story online, crafting digital marketing that feels human, builds trust and creates meaningful connections that last.',
+    image: "/slide1.png",
+    titlePrefix: "Top",
+    titleHighlight: "IT Company",
+    titleSuffix: "in Nepal for digital marketing",
+    description:
+      "We partner with you to tell your story online, crafting digital marketing that feels human, builds trust and creates meaningful connections that last.",
   },
   {
     id: 2,
-    image: '/slide2.png',
-    titlePrefix: 'Custom',
-    titleHighlight: 'Software Dev',
-    titleSuffix: 'tailored for scale and success',
-    description: 'We engineer secure web systems, enterprise architectures, and robust mobile applications that streamline operations and deliver excellent experiences.',
+    image: "/slide2.png",
+    titlePrefix: "Custom",
+    titleHighlight: "Software Dev",
+    titleSuffix: "tailored for scale and success",
+    description:
+      "We engineer secure web systems, enterprise architectures, and robust mobile applications that streamline operations and deliver excellent experiences.",
   },
   {
     id: 3,
-    image: '/slide3.png',
-    titlePrefix: 'Reliable',
-    titleHighlight: 'Cloud & DevOps',
-    titleSuffix: 'keeping systems fast and online',
-    description: 'Empower your infrastructure with automated deployment pipelines, 24/7 server monitoring, and advanced security configurations designed for uptime.',
+    image: "/slide3.png",
+    titlePrefix: "Reliable",
+    titleHighlight: "Cloud & DevOps",
+    titleSuffix: "keeping systems fast and online",
+    description:
+      "Empower your infrastructure with automated deployment pipelines, 24/7 server monitoring, and advanced security configurations designed for uptime.",
   },
 ];
 
 const MENU_LINKS = [
-  { label: 'Home', href: '/' },
-  { label: 'Services', href: '/services' },
-  { label: 'About Us', href: '/#about' },
-  { label: 'Portfolio', href: '/works' },
-  { label: 'Contact', href: '/#contact' },
+  { label: "Home", href: "/" },
+  { label: "Services", href: "/services" },
+  { label: "About Us", href: "/about" },
+  { label: "Portfolio", href: "/works" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 const App: React.FC = () => {
@@ -80,7 +84,9 @@ const App: React.FC = () => {
   };
 
   const handlePrev = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + SLIDES.length) % SLIDES.length);
+    setCurrentIndex(
+      (prevIndex) => (prevIndex - 1 + SLIDES.length) % SLIDES.length,
+    );
   };
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
@@ -89,35 +95,38 @@ const App: React.FC = () => {
   };
 
   const handleScrollToTop = () => {
-    mainRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+    mainRef.current?.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const handleNavLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleNavLinkClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
     e.preventDefault();
     setMenuOpen(false);
 
-    if (href.startsWith('/#') || href === '/') {
-      const hash = href.split('#')[1];
-      if (location.pathname !== '/') {
-        navigate('/');
+    if (href.startsWith("/#") || href === "/") {
+      const hash = href.split("#")[1];
+      if (location.pathname !== "/") {
+        navigate("/");
         if (hash) {
           setTimeout(() => {
             const el = document.getElementById(hash);
             if (el) {
-              el.scrollIntoView({ behavior: 'smooth' });
+              el.scrollIntoView({ behavior: "smooth" });
             }
           }, 150);
         } else {
-          mainRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+          mainRef.current?.scrollTo({ top: 0, behavior: "smooth" });
         }
       } else {
         if (hash) {
           const el = document.getElementById(hash);
           if (el) {
-            el.scrollIntoView({ behavior: 'smooth' });
+            el.scrollIntoView({ behavior: "smooth" });
           }
         } else {
-          mainRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+          mainRef.current?.scrollTo({ top: 0, behavior: "smooth" });
         }
       }
     } else {
@@ -129,8 +138,8 @@ const App: React.FC = () => {
   return (
     <div className="flex h-screen w-screen bg-white text-sigmo-dark overflow-hidden font-sans relative">
       {/* Brand Sidebar (Left) */}
-      <Sidebar 
-        onSearchClick={() => setSearchOpen((prev) => !prev)} 
+      <Sidebar
+        onSearchClick={() => setSearchOpen((prev) => !prev)}
         isScrolled={isScrolled}
         onScrollToTop={handleScrollToTop}
       />
@@ -149,7 +158,9 @@ const App: React.FC = () => {
       {/* Hamburger Navigation Overlay Drawer */}
       <div
         className={`fixed inset-0 bg-white/95 backdrop-blur-md z-42 flex flex-col justify-center items-center transition-all duration-500 ease-in-out ${
-          menuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
+          menuOpen
+            ? "opacity-100 visible"
+            : "opacity-0 invisible pointer-events-none"
         }`}
       >
         <nav className="flex flex-col items-center gap-8">
@@ -174,7 +185,7 @@ const App: React.FC = () => {
       <SearchOverlay isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
 
       {/* Main Scroll Container */}
-      <main 
+      <main
         ref={mainRef}
         onScroll={handleScroll}
         className="flex-1 h-screen overflow-y-auto scroll-smooth relative"
@@ -198,10 +209,7 @@ const App: React.FC = () => {
 
                   {/* Right Side: Core Brand Copy, Navigation, Call to Actions */}
                   <section className="w-full lg:w-1/2 h-auto lg:h-full">
-                    <HeroContent
-                      slides={SLIDES}
-                      currentIndex={currentIndex}
-                    />
+                    <HeroContent slides={SLIDES} currentIndex={currentIndex} />
                   </section>
                 </div>
 
@@ -227,7 +235,7 @@ const App: React.FC = () => {
                     className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3"
                     style={{
                       background:
-                        'radial-gradient(ellipse 75% 100% at 50% 100%, rgba(36,165,86,0.28) 0%, rgba(36,165,86,0.08) 45%, transparent 75%)',
+                        "radial-gradient(ellipse 75% 100% at 50% 100%, rgba(36,165,86,0.28) 0%, rgba(36,165,86,0.08) 45%, transparent 75%)",
                     }}
                   />
                   <div className="relative z-10 w-full h-full">
@@ -242,6 +250,7 @@ const App: React.FC = () => {
           />
           <Route path="/works" element={<WorksPage />} />
           <Route path="/services" element={<ServicesPage />} />
+          <Route path="/about" element={<AboutPage />} />
         </Routes>
       </main>
     </div>

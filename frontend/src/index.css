@@ -6,6 +6,7 @@
   --color-sigmo-light: #f9fafb;
   --font-rajdhani: "Rajdhani", sans-serif;
   --font-sans: "Inter", sans-serif;
+  --font-devanagari: "Tiro Devanagari Hindi", serif;
   --animate-marquee: marquee 30s linear infinite;
   --animate-text-draw: text-draw 4s ease-in-out forwards;
   @keyframes fade-in {
