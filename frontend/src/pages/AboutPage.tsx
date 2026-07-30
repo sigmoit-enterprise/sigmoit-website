@@ -28,7 +28,7 @@ const TEAM = [
     name: "Prasun Bhattarai",
     role: "Co-founder, CTO",
     tenure: "2026 - Present",
-    image: "",
+    image: "/Team/prasun.jpeg",
   },
 ];
 
