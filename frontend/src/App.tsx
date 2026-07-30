@@ -225,12 +225,6 @@ const App: React.FC = () => {
                 {/* Services Showcase Section */}
                 <ServicesSection />
 
-                {/* Selected Works Carousel Section */}
-                <WorksSection />
-
-                {/* Requirement CTA Section */}
-                <RequirementSection />
-
                 {/* Interactive Brand Wordmark Section */}
                 <section className="relative w-full bg-white border-t border-gray-100 h-[24rem] md:h-[32rem] flex items-center justify-center overflow-hidden">
                   <div
@@ -245,6 +239,12 @@ const App: React.FC = () => {
                     <TextHoverEffect text="SIGMOIT" />
                   </div>
                 </section>
+
+                {/* Selected Works Carousel Section */}
+                <WorksSection />
+
+                {/* Requirement CTA Section */}
+                <RequirementSection />
 
                 {/* Product Build CTA Section */}
                 <TalentSection />

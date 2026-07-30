@@ -34,8 +34,8 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({
             alt={`SigmoIT workspace slide ${index + 1}`}
             className="w-full h-full object-cover transform scale-100 group-hover:scale-105 transition-transform duration-[4000ms] ease-out"
           />
-          {/* Subtle dark overlay for readability */}
-          <div className="absolute inset-0 bg-gradient-to-r from-sigmo-dark/10 via-transparent to-sigmo-dark/40"></div>
+          {/* Black overlay to focus attention */}
+          <div className="absolute inset-0 bg-black/65"></div>
         </div>
       ))}
 

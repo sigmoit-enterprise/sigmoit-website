@@ -120,7 +120,7 @@ export const AboutPage: React.FC = () => {
         }}
       >
         <div className="relative z-10 w-full max-w-[1200px] text-center">
-          <p className="font-devanagari text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[4.25rem] leading-[1.5] tracking-wide">
+          <p className="font-kalam font-bold text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[4.25rem] leading-[1.5] tracking-wide">
             <Typewriter text={SHLOKA} />
           </p>
           <p className="mt-8 md:mt-10 text-white/60 text-xs sm:text-sm md:text-base font-light tracking-[0.25em] uppercase">
