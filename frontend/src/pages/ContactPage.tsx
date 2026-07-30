@@ -72,6 +72,7 @@ const inputClass =
 export const ContactPage: React.FC = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [number, setNumber] = useState("");
   const [service, setService] = useState(SERVICES[0]);
   const [message, setMessage] = useState("");
 
@@ -79,7 +80,7 @@ export const ContactPage: React.FC = () => {
     document.querySelector("main")?.scrollTo({ top: 0 });
   }, []);
 
-  const summary = `Hi SigmoIT, I'm ${name}.\n\nService: ${service}\nEmail: ${email}\n\n${message}`;
+  const summary = `Hi SigmoIT, I'm ${name}.\n\nService: ${service}\nEmail: ${email}\nPhone: ${number}\n\n${message}`;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -240,7 +241,7 @@ export const ContactPage: React.FC = () => {
               Tell us about it
             </h2>
 
-            <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2">
+            <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-3">
               <label className="flex flex-col gap-2">
                 <span className="text-xs font-semibold uppercase tracking-[0.14em] text-[#1b1f22]/50">
                   Your name
@@ -268,7 +269,20 @@ export const ContactPage: React.FC = () => {
                 />
               </label>
 
-              <label className="flex flex-col gap-2 sm:col-span-2">
+              <label className="flex flex-col gap-2">
+                <span className="text-xs font-semibold uppercase tracking-[0.14em] text-[#1b1f22]/50">
+                  Phone Number
+                </span>
+                <input
+                  type="tel"
+                  value={number}
+                  onChange={(e) => setNumber(e.target.value)}
+                  placeholder="+977 98XXXXXXXX"
+                  className={inputClass}
+                />
+              </label>
+
+              <label className="flex flex-col gap-2 sm:col-span-3">
                 <span className="text-xs font-semibold uppercase tracking-[0.14em] text-[#1b1f22]/50">
                   What do you need?
                 </span>
@@ -285,7 +299,7 @@ export const ContactPage: React.FC = () => {
                 </select>
               </label>
 
-              <label className="flex flex-col gap-2 sm:col-span-2">
+              <label className="flex flex-col gap-2 sm:col-span-3">
                 <span className="text-xs font-semibold uppercase tracking-[0.14em] text-[#1b1f22]/50">
                   Project details
                 </span>
