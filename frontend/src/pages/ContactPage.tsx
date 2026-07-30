@@ -100,7 +100,7 @@ export const ContactPage: React.FC = () => {
   return (
     <div className="w-full min-h-screen flex flex-col">
       <section
-        className="relative w-full min-h-[70vh] flex flex-col justify-center items-center overflow-hidden shrink-0 select-none px-6 py-24"
+        className="relative w-full min-h-screen flex flex-col overflow-hidden shrink-0 px-6 select-none"
         style={{
           background:
             "radial-gradient(ellipse 80% 70% at 50% 50%, #157a3c 0%, #0f5c2d 28%, #0a3f1f 55%, #06280f 78%, #021106 100%)",
@@ -108,46 +108,37 @@ export const ContactPage: React.FC = () => {
       >
         <div aria-hidden className="pointer-events-none absolute inset-0">
           <div className="absolute -left-20 top-16 h-72 w-72 rounded-full bg-[#24a556]/25 blur-[100px]" />
-          <div className="absolute -right-16 bottom-10 h-80 w-80 rounded-full bg-[#67e8f9]/10 blur-[110px]" />
+          <div className="absolute -right-16 bottom-10 h-80 w-80 rounded-full bg-white/5 blur-[110px]" />
         </div>
 
+        {/* Line Art Centered (offset up) */}
+        <div className="relative z-10 flex-1 flex items-center justify-center -mt-24 md:-mt-32">
+          <motion.img
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            src="/line-art/contact.png"
+            alt=""
+            className="w-[28rem] h-[28rem] md:w-[40rem] md:h-[40rem] object-contain brightness-0 invert"
+          />
+        </div>
+
+        {/* Contact Title at Bottom Left */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="relative z-10 w-full max-w-[860px] text-center"
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          className="relative z-10 pb-16 md:pb-20"
         >
-          <p className="text-xs font-light uppercase tracking-[0.3em] text-white/60">
-            Get in touch
-          </p>
-          <h1 className="mt-6 font-sans text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl md:text-6xl lg:text-[4.25rem]">
-            Let&apos;s build something
-            <br />
-            <span className="text-[#4ade80]">worth talking about.</span>
-          </h1>
-          <p className="mx-auto mt-6 max-w-[520px] text-sm font-light leading-relaxed text-white/70 md:text-base">
-            Tell us what you have in mind. We&apos;ll come back with a clear
-            scope, timeline and cost — usually within one working day.
-          </p>
+          <nav className="flex items-center gap-2 text-xs font-light tracking-[0.2em] uppercase text-white/50 mb-3">
+            <a href="/" className="hover:text-white/80 transition-colors">Home</a>
+            <span className="text-white/30">/</span>
+            <span className="text-white/80">Contact</span>
+          </nav>
 
-          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <a
-              href={WHATSAPP_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex w-full items-center justify-center gap-2.5 rounded-lg border border-white/40 bg-white/10 px-8 py-3.5 text-sm font-bold tracking-wide text-white shadow-[0_8px_32px_rgba(0,0,0,0.25),inset_0_1px_0_rgba(255,255,255,0.4)] backdrop-blur-xl transition-all duration-300 hover:border-white/60 hover:bg-white/20 sm:w-auto"
-            >
-              <WhatsAppIcon className="h-5 w-5" />
-              <span>WhatsApp Now</span>
-            </a>
-            <a
-              href={`tel:${PHONE_NUMBER}`}
-              className="inline-flex w-full items-center justify-center gap-2.5 rounded-lg border border-white/25 px-8 py-3.5 text-sm font-bold tracking-wide text-white/90 backdrop-blur-md transition-all duration-300 hover:border-white/50 hover:bg-white/10 sm:w-auto"
-            >
-              <Phone className="h-5 w-5" />
-              <span>Call Us</span>
-            </a>
-          </div>
+          <h1 className="font-sans text-5xl sm:text-6xl md:text-7xl font-bold text-white tracking-tight leading-none">
+            Contact
+          </h1>
         </motion.div>
       </section>
 
