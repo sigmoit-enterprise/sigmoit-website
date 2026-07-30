@@ -1,16 +1,35 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { MapPin, AtSign, Phone } from 'lucide-react';
+import { WhatsAppIcon, FacebookIcon, InstagramIcon } from './BrandIcons';
+import { SigmoMark } from './SigmoMark';
+
+const EMAIL = 'thesigmoit@gmail.com';
+const PHONE_NUMBER = '+9779822389427';
+const PHONE_DISPLAY = '+977 982-2389427';
+const WHATSAPP_LINK = 'https://wa.me/9779822389427';
+
+const SOCIALS = [
+  {
+    label: 'Facebook',
+    href: 'https://www.facebook.com/profile.php?id=61581744933809',
+    Icon: FacebookIcon,
+  },
+  {
+    label: 'Instagram',
+    href: 'https://www.instagram.com/thesigmoit/',
+    Icon: InstagramIcon,
+  },
+  { label: 'WhatsApp', href: WHATSAPP_LINK, Icon: WhatsAppIcon },
+];
 
 export const Footer: React.FC = () => {
   return (
     <footer id="contact" className="w-full bg-[#f4faf6] border-t border-gray-200/40 rounded-t-[3rem] md:rounded-t-[5rem] relative overflow-hidden select-none">
       
-      {/* Giant Watermarked Logo in the background (Faded, straight, left aligned) */}
-      <div className="absolute left-0 bottom-0 top-0 w-full md:w-1/2 opacity-[0.08] pointer-events-none z-0 flex items-center justify-start pl-8 overflow-hidden">
-        <img 
-          src="/logo2.png" 
-          alt="" 
-          className="w-[450px] md:w-[650px] h-auto object-contain transform translate-x-[-15%] translate-y-[10%]"
-        />
+      {/* Giant Watermarked Mark in the background */}
+      <div className="absolute -left-16 md:-left-10 top-1/2 -translate-y-1/2 pointer-events-none z-0">
+        <SigmoMark className="w-[320px] md:w-[480px] h-auto text-sigmo-green opacity-[0.06]" />
       </div>
 
       {/* Main Footer Content */}
@@ -20,19 +39,35 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 py-16 border-b border-gray-200/60">
           
           {/* Logo & Tagline Column (Spans 2 columns on large screens) */}
-          <div className="lg:col-span-2 flex flex-col justify-start">
-            <div className="flex items-center gap-6">
-              <img 
-                src="/logo.png" 
-                alt="SigmoIT Logo" 
-                className="h-12 md:h-14 w-auto object-contain"
-              />
-              <div className="w-[1px] h-10 bg-gray-300"></div>
-              <div className="text-left font-sans text-xs md:text-sm text-gray-500 font-semibold tracking-wide leading-tight">
-                <span className="block">Innovation.</span>
-                <span className="block">Technology.</span>
-                <span className="block">People.</span>
-              </div>
+          <div className="lg:col-span-2 flex flex-col justify-start gap-6">
+            <Link to="/" className="inline-flex items-center gap-4 group w-fit">
+              <SigmoMark className="h-11 md:h-12 w-auto text-sigmo-green transition-transform duration-300 group-hover:scale-105" />
+              <span className="font-rajdhani text-3xl md:text-4xl font-bold tracking-tight text-sigmo-dark leading-none">
+                Sigmo<span className="text-sigmo-green">IT</span>
+              </span>
+            </Link>
+
+            <div className="flex items-center gap-3 font-sans text-xs md:text-sm text-gray-500 font-semibold tracking-wide">
+              <span>Innovation.</span>
+              <span className="w-1 h-1 rounded-full bg-sigmo-green" />
+              <span>Technology.</span>
+              <span className="w-1 h-1 rounded-full bg-sigmo-green" />
+              <span>People.</span>
+            </div>
+
+            <div className="flex items-center gap-3">
+              {SOCIALS.map(({ label, href, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="w-10 h-10 rounded-full border border-sigmo-green/30 text-sigmo-green flex items-center justify-center hover:bg-sigmo-green hover:border-sigmo-green hover:text-white transition-all duration-300"
+                >
+                  <Icon className="w-[18px] h-[18px]" />
+                </a>
+              ))}
             </div>
           </div>
 
@@ -65,26 +100,36 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Ecosystem Links Column */}
+          {/* Sitemap Links Column */}
           <div className="flex flex-col gap-4">
             <h4 className="font-rajdhani text-lg font-bold text-sigmo-green">
-              Ecosystem
+              Sitemap
             </h4>
             <ul className="flex flex-col gap-3 text-sm font-medium text-gray-500">
               <li>
-                <a href="/#ing-arc" className="hover:text-sigmo-green transition-colors duration-300">
-                  ING Arc
-                </a>
+                <Link to="/" className="hover:text-sigmo-green transition-colors duration-300">
+                  Home
+                </Link>
               </li>
               <li>
-                <a href="/#innovate-tech" className="hover:text-sigmo-green transition-colors duration-300">
-                  Innovate Tech
-                </a>
+                <Link to="/services" className="hover:text-sigmo-green transition-colors duration-300">
+                  Services
+                </Link>
               </li>
               <li>
-                <a href="/#ing-skill" className="hover:text-sigmo-green transition-colors duration-300">
-                  ING Skill
-                </a>
+                <Link to="/about" className="hover:text-sigmo-green transition-colors duration-300">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link to="/works" className="hover:text-sigmo-green transition-colors duration-300">
+                  Portfolio
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="hover:text-sigmo-green transition-colors duration-300">
+                  Contact
+                </Link>
               </li>
             </ul>
           </div>
@@ -94,21 +139,39 @@ export const Footer: React.FC = () => {
             <h4 className="font-rajdhani text-lg font-bold text-sigmo-green">
               Get started
             </h4>
-            <ul className="flex flex-col gap-3 text-sm font-medium text-gray-500">
-              <li>
-                <a href="/#book-a-call" className="hover:text-sigmo-green transition-colors duration-300">
-                  Book a call
+            <ul className="flex flex-col gap-3.5 text-sm font-medium text-gray-500">
+              <li className="flex items-start gap-3">
+                <MapPin className="w-4 h-4 mt-0.5 shrink-0 text-sigmo-green" />
+                <span className="select-text leading-snug">Damak-8, Jhapa, Nepal</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <AtSign className="w-4 h-4 mt-0.5 shrink-0 text-sigmo-green" />
+                <a
+                  href={`mailto:${EMAIL}`}
+                  className="hover:text-sigmo-green transition-colors duration-300 select-text break-all"
+                >
+                  {EMAIL}
                 </a>
               </li>
-              <li>
-                <a href="mailto:sales@sigmoit.com" className="hover:text-sigmo-green transition-colors duration-300 select-text">
-                  sales@sigmoit.com
+              <li className="flex items-start gap-3">
+                <Phone className="w-4 h-4 mt-0.5 shrink-0 text-sigmo-green" />
+                <a
+                  href={`tel:${PHONE_NUMBER}`}
+                  className="hover:text-sigmo-green transition-colors duration-300 select-text"
+                >
+                  {PHONE_DISPLAY}
                 </a>
               </li>
-              <li>
-                <span className="select-text">
-                  +9779801022185
-                </span>
+              <li className="flex items-start gap-3">
+                <WhatsAppIcon className="w-4 h-4 mt-0.5 shrink-0 text-sigmo-green" />
+                <a
+                  href={WHATSAPP_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-sigmo-green transition-colors duration-300 select-text"
+                >
+                  {PHONE_DISPLAY}
+                </a>
               </li>
             </ul>
           </div>

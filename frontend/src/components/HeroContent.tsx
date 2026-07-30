@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 
 interface SlideData {
@@ -40,8 +41,8 @@ export const HeroContent: React.FC<HeroContentProps> = ({ slides, currentIndex }
 
         {/* CTA Button */}
         <div className="mt-10">
-          <a
-            href="#contact"
+          <Link
+            to="/contact"
             className="group inline-flex items-center gap-4 text-xs md:text-sm font-semibold tracking-widest text-sigmo-dark hover:text-sigmo-green transition-colors duration-300 uppercase"
           >
             <span>Discover Now</span>
@@ -49,7 +50,7 @@ export const HeroContent: React.FC<HeroContentProps> = ({ slides, currentIndex }
             <span className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-sigmo-green text-white flex items-center justify-center group-hover:bg-emerald-600 transition-all duration-300 group-hover:scale-110 shadow-lg shadow-sigmo-green/20">
               <ArrowRight className="w-4 h-4 md:w-5 md:h-5 transform group-hover:translate-x-1 transition-transform duration-300" />
             </span>
-          </a>
+          </Link>
         </div>
       </div>
 

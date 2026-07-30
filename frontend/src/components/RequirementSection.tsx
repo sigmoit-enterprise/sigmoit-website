@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const WORDS = ['Develop', 'Design', 'Deploy'];
 
@@ -91,13 +92,13 @@ export const RequirementSection: React.FC = () => {
             className="pointer-events-none absolute inset-x-8 -bottom-4 h-24 rounded-full bg-[#67e8f9] opacity-20 blur-[60px]"
           />
 
-          <a
-            href="#contact"
+          <Link
+            to="/contact"
             className="relative group inline-flex items-center gap-2 rounded-lg border border-white/40 bg-white/10 px-9 py-4 text-sm font-bold tracking-wide text-white shadow-[0_8px_32px_rgba(0,0,0,0.25),inset_0_1px_0_rgba(255,255,255,0.4)] backdrop-blur-xl transition-all duration-300 hover:border-white/60 hover:bg-white/20"
           >
             <span>Connect Now</span>
             <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
-          </a>
+          </Link>
         </div>
       </div>
     </section>

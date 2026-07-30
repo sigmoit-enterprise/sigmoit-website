@@ -8,6 +8,7 @@ import { StatsAndOrganizations } from "./components/StatsAndOrganizations";
 import { ToolsAndTechnologies } from "./components/ToolsAndTechnologies";
 import { ServicesSection } from "./components/ServicesSection";
 import { TalentSection } from "./components/TalentSection";
+import { ContactActions } from "./components/ContactActions";
 import { RequirementSection } from "./components/RequirementSection";
 import { WorksSection } from "./components/WorksSection";
 import { TextHoverEffect } from "./components/TextHoverEffect";
@@ -15,6 +16,7 @@ import { Footer } from "./components/Footer";
 import { WorksPage } from "./pages/WorksPage";
 import { ServicesPage } from "./pages/ServicesPage";
 import { AboutPage } from "./pages/AboutPage";
+import { ContactPage } from "./pages/ContactPage";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 
 interface SlideData {
@@ -61,7 +63,7 @@ const MENU_LINKS = [
   { label: "Services", href: "/services" },
   { label: "About Us", href: "/about" },
   { label: "Portfolio", href: "/works" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const App: React.FC = () => {
@@ -247,6 +249,9 @@ const App: React.FC = () => {
                 {/* Product Build CTA Section */}
                 <TalentSection />
 
+                {/* WhatsApp / Call Action Section */}
+                <ContactActions />
+
                 {/* Corporate Footer Section */}
                 <Footer />
               </>
@@ -255,6 +260,7 @@ const App: React.FC = () => {
           <Route path="/works" element={<WorksPage />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
         </Routes>
       </main>
     </div>

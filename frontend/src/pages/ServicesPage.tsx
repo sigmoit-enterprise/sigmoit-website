@@ -1,16 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { Database } from 'lucide-react';
-import { Footer } from '../components/Footer';
+import React, { useEffect, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Database } from "lucide-react";
+import { Footer } from "../components/Footer";
 
-const getGearPath = (cx: number, cy: number, rIn: number, rOut: number, teeth: number, phaseOffset = 0) => {
+const getGearPath = (
+  cx: number,
+  cy: number,
+  rIn: number,
+  rOut: number,
+  teeth: number,
+  phaseOffset = 0,
+) => {
   const points: string[] = [];
   const steps = teeth * 8;
   const toothAngle = (2 * Math.PI) / teeth;
-  
+
   for (let i = 0; i <= steps; i++) {
     const angle = (i / steps) * 2 * Math.PI;
-    const toothPhase = ((angle + phaseOffset) % toothAngle + toothAngle) % toothAngle / toothAngle;
+    const toothPhase =
+      ((((angle + phaseOffset) % toothAngle) + toothAngle) % toothAngle) /
+      toothAngle;
     let r = rIn;
     if (toothPhase > 0.25 && toothPhase <= 0.35) {
       r = rIn + ((toothPhase - 0.25) / 0.1) * (rOut - rIn);
@@ -19,7 +28,7 @@ const getGearPath = (cx: number, cy: number, rIn: number, rOut: number, teeth: n
     } else if (toothPhase > 0.75 && toothPhase <= 0.85) {
       r = rOut - ((toothPhase - 0.75) / 0.1) * (rOut - rIn);
     }
-    
+
     const x = cx + r * Math.cos(angle);
     const y = cy + r * Math.sin(angle);
     if (i === 0) {
@@ -28,13 +37,14 @@ const getGearPath = (cx: number, cy: number, rIn: number, rOut: number, teeth: n
       points.push(`L ${x.toFixed(1)} ${y.toFixed(1)}`);
     }
   }
-  points.push('Z');
-  return points.join(' ');
+  points.push("Z");
+  return points.join(" ");
 };
 
 const BIG_GEAR_PATH = getGearPath(350, 200, 90, 110, 12, 0.15);
 const SMALL_GEAR_PATH = getGearPath(505, 135, 60, 76, 8, 0.4);
-const CENTER_LINE_PATH = "M 50 200 L 350 200 C 420 200, 435 135, 505 135 L 850 135";
+const CENTER_LINE_PATH =
+  "M 50 200 L 350 200 C 420 200, 435 135, 505 135 L 850 135";
 
 interface Service {
   title: string;
@@ -44,42 +54,58 @@ interface Service {
 
 const SERVICES: Service[] = [
   {
-    title: 'Web Design\n& UX',
-    description: 'Creating lasting impressions through crafted experiences',
+    title: "Web Design\n& UX",
+    description: "Creating lasting impressions through crafted experiences",
   },
   {
-    title: 'Software\nDevelopment',
-    description: 'Empowering businesses through innovative software development',
-  },
-  {
-    title: 'Mobile App\nDevelopment',
-    description: 'From native to cross-platform: integration made seamless',
-  },
-  {
-    title: 'Web App\nDevelopment',
-    description: 'Rich in User Experience, Rock-Solid in performance',
-  },
-  {
-    title: 'Digital\nMarketing',
-    description: 'We redefine what it means to market your business online',
+    title: "Software\nDevelopment",
+    description:
+      "Empowering businesses through innovative software development",
     isSpecial: true, // Special highlighted red styling by default
   },
   {
-    title: 'Search Engine\nOptimization',
-    description: 'To drive organic visitors from the web that want to buy from you',
+    title: "Mobile App\nDevelopment",
+    description: "From native to cross-platform: integration made seamless",
+  },
+  {
+    title: "Web App\nDevelopment",
+    description: "Rich in User Experience, Rock-Solid in performance",
+  },
+  {
+    title: "Artifical\nIntelligence",
+    description:
+      "We harness the power of AI to transform your business processes and decision-making",
+    isSpecial: true, // Special highlighted red styling by default
+  },
+  {
+    title: "Digital\nMarketing",
+    description: "We redefine what it means to market your business online",
+    isSpecial: true, // Special highlighted red styling by default
+  },
+  {
+    title: "Search Engine\nOptimization",
+    description:
+      "To drive organic visitors from the web that want to buy from you",
+  },
+  {
+    title: "Web\nHosting",
+    description:
+      "We provide reliable and secure web hosting solutions to keep your online presence up and running smoothly.",
   },
 ];
 
 export const ServicesPage: React.FC = () => {
-  const [scrollContainer, setScrollContainer] = useState<HTMLElement | null>(null);
+  const [scrollContainer, setScrollContainer] = useState<HTMLElement | null>(
+    null,
+  );
   const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
     // Scroll to top when page is mounted
     window.scrollTo(0, 0);
-    
+
     // Find the main scroll container from App.tsx layout
-    const mainEl = document.querySelector('main');
+    const mainEl = document.querySelector("main");
     if (mainEl) {
       setScrollContainer(mainEl);
       mainEl.scrollTo({ top: 0 });
@@ -90,8 +116,8 @@ export const ServicesPage: React.FC = () => {
       setIsDesktop(window.innerWidth >= 1024);
     };
     checkDesktop();
-    window.addEventListener('resize', checkDesktop);
-    return () => window.removeEventListener('resize', checkDesktop);
+    window.addEventListener("resize", checkDesktop);
+    return () => window.removeEventListener("resize", checkDesktop);
   }, []);
 
   // Framer Motion Scroll tracking hooked to the main container
@@ -115,8 +141,8 @@ export const ServicesPage: React.FC = () => {
         <div
           className={`absolute top-0 left-0 w-16 h-16 flex items-center justify-center transition-all duration-500 ${
             service.isSpecial
-              ? 'bg-[#24a556] text-white shadow-md'
-              : 'bg-[#e1ede5] text-[#24a556] group-hover:bg-[#24a556] group-hover:text-white group-hover:shadow-md'
+              ? "bg-[#24a556] text-white shadow-md"
+              : "bg-[#e1ede5] text-[#24a556] group-hover:bg-[#24a556] group-hover:text-white group-hover:shadow-md"
           }`}
         >
           <Database className="w-6 h-6 stroke-[1.5]" />
@@ -154,7 +180,10 @@ export const ServicesPage: React.FC = () => {
 
         {/* Gears Illustration (Animated SVG Line Art) */}
         <div className="relative z-10 w-[90%] max-w-[700px] flex items-center justify-center p-4">
-          <svg viewBox="0 0 900 380" className="w-full h-auto text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.15)] pointer-events-none select-none">
+          <svg
+            viewBox="0 0 900 380"
+            className="w-full h-auto text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.15)] pointer-events-none select-none"
+          >
             {/* Center flowing line */}
             <motion.path
               d={CENTER_LINE_PATH}
@@ -242,8 +271,12 @@ export const ServicesPage: React.FC = () => {
                   key={index}
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-50px' }}
-                  transition={{ duration: 0.6, ease: 'easeOut', delay: index * 0.1 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{
+                    duration: 0.6,
+                    ease: "easeOut",
+                    delay: index * 0.1,
+                  }}
                 >
                   {renderCard(service, index)}
                 </motion.div>

@@ -37,13 +37,13 @@ export const TalentSection: React.FC = () => {
           </p>
           
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
-            <a
-              href="#contact"
+            <Link
+              to="/contact"
               className="w-full sm:w-auto px-8 py-3.5 bg-sigmo-green hover:bg-emerald-600 text-white font-bold rounded-lg text-sm transition-all duration-300 shadow-lg shadow-sigmo-green/20 text-center flex items-center justify-center gap-2 group"
             >
               <span>Contact Now</span>
               <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
-            </a>
+            </Link>
             <Link
               to="/about"
               className="w-full sm:w-auto px-8 py-3.5 border border-sigmo-green text-sigmo-green hover:bg-sigmo-green hover:text-white font-bold rounded-lg text-sm transition-all duration-300 text-center"
