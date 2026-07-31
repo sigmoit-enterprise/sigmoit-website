@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, AtSign, Phone, Clock, Send } from "lucide-react";
+import { CheckCircle2, MapPin, AtSign, Phone, Clock, Send } from "lucide-react";
 import { Footer } from "../components/Footer";
 import {
   WhatsAppIcon,
   FacebookIcon,
   InstagramIcon,
 } from "../components/BrandIcons";
+import { inquiriesApi } from "../admin/lib/api";
+import { errorMessage } from "../admin/lib/useAsync";
 
 const EMAIL = "thesigmoit@gmail.com";
 const PHONE_NUMBER = "+9779822389427";
@@ -73,8 +75,12 @@ export const ContactPage: React.FC = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
+  const [company, setCompany] = useState("");
   const [service, setService] = useState(SERVICES[0]);
   const [message, setMessage] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   useEffect(() => {
     document.querySelector("main")?.scrollTo({ top: 0 });
@@ -82,11 +88,30 @@ export const ContactPage: React.FC = () => {
 
   const summary = `Hi SigmoIT, I'm ${name}.\n\nService: ${service}\nEmail: ${email}\nPhone: ${number}\n\n${message}`;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(
-      `${service} enquiry from ${name}`,
-    )}&body=${encodeURIComponent(summary)}`;
+    setSubmitting(true);
+    setSubmitError(null);
+    try {
+      await inquiriesApi.submitPublic({
+        businessName: company.trim() || name.trim(),
+        contactPersonName: name.trim(),
+        contact1: number.trim(),
+        email1: email.trim(),
+        businessType: service,
+        description: message.trim(),
+      });
+      setSubmitted(true);
+      setName("");
+      setEmail("");
+      setNumber("");
+      setCompany("");
+      setMessage("");
+    } catch (err) {
+      setSubmitError(errorMessage(err));
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleWhatsApp = () => {
@@ -273,7 +298,19 @@ export const ContactPage: React.FC = () => {
                 />
               </label>
 
-              <label className="flex flex-col gap-2 sm:col-span-3">
+              <label className="flex flex-col gap-2">
+                <span className="text-xs font-semibold uppercase tracking-[0.14em] text-[#1b1f22]/50">
+                  Company <span className="normal-case tracking-normal opacity-60">(optional)</span>
+                </span>
+                <input
+                  value={company}
+                  onChange={(e) => setCompany(e.target.value)}
+                  placeholder="Acme Pvt. Ltd."
+                  className={inputClass}
+                />
+              </label>
+
+              <label className="flex flex-col gap-2 sm:col-span-2">
                 <span className="text-xs font-semibold uppercase tracking-[0.14em] text-[#1b1f22]/50">
                   What do you need?
                 </span>
@@ -305,12 +342,37 @@ export const ContactPage: React.FC = () => {
               </label>
             </div>
 
+            {submitted && (
+              <div className="mt-6 flex items-start gap-3 rounded-xl border border-[#24a556]/30 bg-[#24a556]/10 p-4">
+                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[#24a556]" />
+                <div>
+                  <p className="text-sm font-bold text-[#0b3d1f]">
+                    Enquiry sent successfully!
+                  </p>
+                  <p className="mt-0.5 text-sm text-[#1b1f22]/60">
+                    Thank you for reaching out — our team will get back to you within one
+                    business day.
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {submitError && (
+              <p
+                role="alert"
+                className="mt-6 rounded-xl border border-rose-300 bg-rose-50 p-3 text-sm font-medium text-rose-700"
+              >
+                {submitError}
+              </p>
+            )}
+
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
               <button
                 type="submit"
-                className="group inline-flex w-full items-center justify-center gap-2.5 rounded-xl bg-[#24a556] px-8 py-3.5 text-sm font-bold tracking-wide text-white shadow-lg shadow-[#24a556]/25 transition-all duration-300 hover:bg-emerald-600 sm:w-auto"
+                disabled={submitting}
+                className="group inline-flex w-full items-center justify-center gap-2.5 rounded-xl bg-[#24a556] px-8 py-3.5 text-sm font-bold tracking-wide text-white shadow-lg shadow-[#24a556]/25 transition-all duration-300 hover:bg-emerald-600 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
               >
-                <span>Send Enquiry</span>
+                <span>{submitting ? "Sending..." : "Send Enquiry"}</span>
                 <Send className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
               </button>
               <button
@@ -324,8 +386,8 @@ export const ContactPage: React.FC = () => {
             </div>
 
             <p className="mt-5 text-xs leading-relaxed text-[#1b1f22]/50">
-              Sending opens your email app or WhatsApp with the message ready to
-              go — nothing is stored on our end.
+              Your enquiry is saved securely and reviewed by our team — you can also
+              send it directly via WhatsApp using the button above.
             </p>
           </motion.form>
         </div>
