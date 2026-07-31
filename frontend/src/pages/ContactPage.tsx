@@ -128,7 +128,7 @@ export const ContactPage: React.FC = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="relative z-10 pb-16 md:pb-20"
+          className="relative z-10 -mt-8 pb-16 md:mt-0 md:pb-20"
         >
           <nav className="flex items-center gap-2 text-xs font-light tracking-[0.2em] uppercase text-white/50 mb-3">
             <a href="/" className="hover:text-white/80 transition-colors">Home</a>

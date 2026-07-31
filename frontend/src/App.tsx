@@ -34,9 +34,9 @@ const SLIDES: SlideData[] = [
     image: "/slide1.png",
     titlePrefix: "Top",
     titleHighlight: "IT Company",
-    titleSuffix: "in Nepal for digital marketing",
+    titleSuffix: "in Nepal for your business growth",
     description:
-      "We partner with you to tell your story online, crafting digital marketing that feels human, builds trust and creates meaningful connections that last.",
+      "We provide end-to-end IT solutions, from web and mobile development to cloud infrastructure and DevOps, ensuring your business thrives in the digital era.",
   },
   {
     id: 2,
@@ -101,13 +101,7 @@ const App: React.FC = () => {
     mainRef.current?.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const handleNavLinkClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    href: string,
-  ) => {
-    e.preventDefault();
-    setMenuOpen(false);
-
+  const goTo = (href: string) => {
     if (href.startsWith("/#") || href === "/") {
       const hash = href.split("#")[1];
       if (location.pathname !== "/") {
@@ -136,6 +130,15 @@ const App: React.FC = () => {
       navigate(href);
       mainRef.current?.scrollTo({ top: 0 });
     }
+  };
+
+  const handleNavLinkClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
+    e.preventDefault();
+    setMenuOpen(false);
+    goTo(href);
   };
 
   return (
@@ -185,7 +188,11 @@ const App: React.FC = () => {
       </div>
 
       {/* Search Drawer Overlay (Slides out from left to right behind sidebar) */}
-      <SearchOverlay isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
+      <SearchOverlay
+        isOpen={searchOpen}
+        onClose={() => setSearchOpen(false)}
+        onNavigate={goTo}
+      />
 
       {/* Main Scroll Container */}
       <main
