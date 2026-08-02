@@ -1,3 +1,6 @@
+﻿import { BLOG_POSTS, postPath } from "../blog";
+import { CASE_STUDIES } from "./caseStudies";
+
 export interface SearchEntry {
   id: string;
   title: string;
@@ -200,47 +203,23 @@ export const SEARCH_INDEX: SearchEntry[] = [
     keywords: ["server", "domain", "uptime", "ssl", "hosting"],
   },
 
-  // Projects
-  {
-    id: "work-svlc",
-    title: "SVLC Law Firm",
-    description: "A complete digital presence for a law firm.",
-    category: "Project",
-    href: "/works",
-    keywords: ["brand identity", "legal", "law", "corporate"],
-  },
-  {
-    id: "work-next-stop-nepal",
-    title: "Next Stop Nepal",
-    description: "Connecting travellers with curated local experiences.",
-    category: "Project",
-    href: "/works",
-    keywords: ["travel", "tourism", "web application", "booking"],
-  },
-  {
-    id: "work-tutor-connect",
-    title: "Tutor Connect",
-    description: "A marketplace bridging students and educators.",
-    category: "Project",
-    href: "/works",
-    keywords: ["edtech", "education", "tutoring", "marketplace", "students"],
-  },
-  {
-    id: "work-rising-diamond",
-    title: "Rising Diamond",
-    description: "An elegant digital presence for a luxury brand.",
-    category: "Project",
-    href: "/works",
-    keywords: ["corporate website", "luxury", "jewellery", "brand"],
-  },
-  {
-    id: "work-terminal-ui",
-    title: "Terminal UI",
-    description: "A developer-centric interface with a tactile feel.",
-    category: "Project",
-    href: "/works",
-    keywords: ["web application", "developer tools", "terminal", "cli"],
-  },
+  // Case studies — generated from the registry so search matches the real pages
+  ...CASE_STUDIES.map<SearchEntry>((study) => ({
+    id: `case-study-${study.slug}`,
+    title: study.name,
+    description: study.description,
+    category: "Case Study",
+    href: study.path,
+    keywords: [
+      ...study.services.map((s) => s.toLowerCase()),
+      ...study.tech.map((t) => t.toLowerCase()),
+      study.category.toLowerCase(),
+      "case study",
+      "portfolio",
+      "projects",
+      "clients",
+    ],
+  })),
 
   // Team
   {
@@ -292,7 +271,7 @@ export const SEARCH_INDEX: SearchEntry[] = [
   {
     id: "contact-whatsapp",
     title: "WhatsApp Us",
-    description: "+977 982-2389427 — fastest way to reach the team.",
+    description: "+977 982-2389427 â€” fastest way to reach the team.",
     category: "Contact",
     href: "/contact",
     keywords: ["whatsapp", "chat", "message", "phone"],
@@ -330,6 +309,25 @@ export const SEARCH_INDEX: SearchEntry[] = [
     href: "/contact",
     keywords: ["quote", "estimate", "enquiry", "form", "brief", "request"],
   },
+
+  // Blog â€” generated from the post registry so search never drifts from content
+  {
+    id: "page-blog",
+    title: "Blog",
+    description:
+      "Guides on web development, SEO, e-commerce and software costs in Nepal.",
+    category: "Page",
+    href: "/blog",
+    keywords: ["articles", "guides", "insights", "news", "resources"],
+  },
+  ...BLOG_POSTS.map<SearchEntry>((post) => ({
+    id: `blog-${post.slug}`,
+    title: post.title,
+    description: post.description,
+    category: "Blog",
+    href: postPath(post.slug),
+    keywords: [...post.keywords, post.category].map((k) => k.toLowerCase()),
+  })),
 ];
 
 const normalize = (value: string) => value.toLowerCase().trim();

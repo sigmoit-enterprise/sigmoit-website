@@ -36,12 +36,14 @@ export const ContainerScroll: React.FC<ContainerScrollProps> = ({
     offset: ['start end', 'end start'],
   });
 
-  const [windowWidth, setWindowWidth] = useState(
-    typeof window !== 'undefined' ? window.innerWidth : 1200
-  );
+  // Must start at the same value the prerenderer used, or the first client
+  // render produces different markup than the served HTML and React discards
+  // the whole tree. The real width is measured immediately after mount.
+  const [windowWidth, setWindowWidth] = useState(1200);
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
+    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);

@@ -28,7 +28,10 @@ export const Footer: React.FC = () => {
     <footer id="contact" className="w-full bg-[#f4faf6] border-t border-gray-200/40 rounded-t-[3rem] md:rounded-t-[5rem] relative overflow-hidden select-none">
       
       {/* Giant Watermarked Mark in the background */}
-      <div className="absolute -left-16 md:-left-10 top-1/2 -translate-y-1/2 pointer-events-none z-0">
+      <div
+        aria-hidden="true"
+        className="absolute -left-16 md:-left-10 top-1/2 -translate-y-1/2 pointer-events-none z-0"
+      >
         <SigmoMark className="w-[320px] md:w-[480px] h-auto text-sigmo-green opacity-[0.06]" />
       </div>
 
@@ -72,39 +75,47 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Company Links Column */}
-          <div className="flex flex-col gap-4">
-            <h4 className="font-rajdhani text-lg font-bold text-sigmo-green">
+          <nav aria-labelledby="footer-company" className="flex flex-col gap-4">
+            <h2
+              id="footer-company"
+              className="font-rajdhani text-lg font-bold text-sigmo-green"
+            >
               Company
-            </h4>
+            </h2>
+            {/* Deep links into cornerstone content — these carry internal link
+                equity to the pages we most want ranking. */}
             <ul className="flex flex-col gap-3 text-sm font-medium text-gray-500">
               <li>
-                <a href="/#how-it-works" className="hover:text-sigmo-green transition-colors duration-300">
-                  How it works
-                </a>
+                <Link to="/services" className="hover:text-sigmo-green transition-colors duration-300">
+                  What we do
+                </Link>
               </li>
               <li>
-                <a href="/#talent-engine" className="hover:text-sigmo-green transition-colors duration-300">
-                  The talent engine
-                </a>
+                <Link to="/about" className="hover:text-sigmo-green transition-colors duration-300">
+                  How we work
+                </Link>
               </li>
               <li>
-                <a href="/#services" className="hover:text-sigmo-green transition-colors duration-300">
-                  Services
-                </a>
+                <Link to="/blog/website-cost-in-nepal" className="hover:text-sigmo-green transition-colors duration-300">
+                  Website pricing in Nepal
+                </Link>
               </li>
               <li>
-                <a href="/#pricing" className="hover:text-sigmo-green transition-colors duration-300">
-                  Pricing
-                </a>
+                <Link to="/blog/hire-offshore-developers-nepal" className="hover:text-sigmo-green transition-colors duration-300">
+                  Hire a dedicated team
+                </Link>
               </li>
             </ul>
-          </div>
+          </nav>
 
           {/* Sitemap Links Column */}
-          <div className="flex flex-col gap-4">
-            <h4 className="font-rajdhani text-lg font-bold text-sigmo-green">
+          <nav aria-labelledby="footer-sitemap" className="flex flex-col gap-4">
+            <h2
+              id="footer-sitemap"
+              className="font-rajdhani text-lg font-bold text-sigmo-green"
+            >
               Sitemap
-            </h4>
+            </h2>
             <ul className="flex flex-col gap-3 text-sm font-medium text-gray-500">
               <li>
                 <Link to="/" className="hover:text-sigmo-green transition-colors duration-300">
@@ -127,25 +138,34 @@ export const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
+                <Link to="/blog" className="hover:text-sigmo-green transition-colors duration-300">
+                  Blog
+                </Link>
+              </li>
+              <li>
                 <Link to="/contact" className="hover:text-sigmo-green transition-colors duration-300">
                   Contact
                 </Link>
               </li>
             </ul>
-          </div>
+          </nav>
 
           {/* Get Started Contact Column */}
           <div className="flex flex-col gap-4">
-            <h4 className="font-rajdhani text-lg font-bold text-sigmo-green">
+            <h2 className="font-rajdhani text-lg font-bold text-sigmo-green">
               Get started
-            </h4>
+            </h2>
+            {/* Marked up as an hCard-ish address block: the NAP here must match
+                siteConfig and the Google Business Profile character for character. */}
             <ul className="flex flex-col gap-3.5 text-sm font-medium text-gray-500">
               <li className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 mt-0.5 shrink-0 text-sigmo-green" />
-                <span className="select-text leading-snug">Damak-8, Jhapa, Nepal</span>
+                <MapPin className="w-4 h-4 mt-0.5 shrink-0 text-sigmo-green" aria-hidden="true" />
+                <address className="select-text not-italic leading-snug">
+                  Damak-8, Jhapa, Nepal
+                </address>
               </li>
               <li className="flex items-start gap-3">
-                <AtSign className="w-4 h-4 mt-0.5 shrink-0 text-sigmo-green" />
+                <AtSign className="w-4 h-4 mt-0.5 shrink-0 text-sigmo-green" aria-hidden="true" />
                 <a
                   href={`mailto:${EMAIL}`}
                   className="hover:text-sigmo-green transition-colors duration-300 select-text break-all"
@@ -154,7 +174,7 @@ export const Footer: React.FC = () => {
                 </a>
               </li>
               <li className="flex items-start gap-3">
-                <Phone className="w-4 h-4 mt-0.5 shrink-0 text-sigmo-green" />
+                <Phone className="w-4 h-4 mt-0.5 shrink-0 text-sigmo-green" aria-hidden="true" />
                 <a
                   href={`tel:${PHONE_NUMBER}`}
                   className="hover:text-sigmo-green transition-colors duration-300 select-text"
@@ -163,7 +183,7 @@ export const Footer: React.FC = () => {
                 </a>
               </li>
               <li className="flex items-start gap-3">
-                <WhatsAppIcon className="w-4 h-4 mt-0.5 shrink-0 text-sigmo-green" />
+                <WhatsAppIcon className="w-4 h-4 mt-0.5 shrink-0 text-sigmo-green" aria-hidden="true" />
                 <a
                   href={WHATSAPP_LINK}
                   target="_blank"
@@ -180,7 +200,9 @@ export const Footer: React.FC = () => {
 
         {/* Bottom Footer: Copyrights & Tagline */}
         <div className="flex flex-col sm:flex-row items-center justify-between py-8 gap-4 text-xs font-semibold text-gray-400 tracking-wider">
-          <div className="select-text">
+          {/* Year is baked in at prerender time; suppress the warning for the
+              edge case where a visitor loads the page after New Year. */}
+          <div className="select-text" suppressHydrationWarning>
             © {new Date().getFullYear()} SigmoIT. All rights reserved.
           </div>
           <div className="select-text uppercase tracking-widest text-[10px]">

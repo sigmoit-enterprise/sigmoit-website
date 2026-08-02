@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Cloud, Globe, Cpu, GraduationCap, ChevronRight } from 'lucide-react';
 
 interface ServiceItem {
@@ -58,7 +59,11 @@ const ServiceCard: React.FC<{ item: ServiceItem }> = ({ item }) => (
 
 export const ServicesSection: React.FC = () => {
   return (
-    <section id="services" className="w-full bg-white border-t border-gray-100 py-20 lg:py-28 relative overflow-hidden select-none">
+    <section
+      id="services"
+      aria-labelledby="services-heading"
+      className="w-full bg-white border-t border-gray-100 py-20 lg:py-28 relative overflow-hidden select-none"
+    >
 
       {/* Shared gradient definition used by the service icons */}
       <svg width="0" height="0" className="absolute" aria-hidden="true" focusable="false">
@@ -91,7 +96,10 @@ export const ServicesSection: React.FC = () => {
 
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-20 md:mb-28">
-          <h2 className="font-rajdhani font-bold leading-[1.05] select-text">
+          <h2
+            id="services-heading"
+            className="font-rajdhani font-bold leading-[1.05] select-text"
+          >
             <span className="block text-3xl md:text-5xl lg:text-[3.4rem] font-normal text-gray-600">
               Comprehensive IT Solutions, Crafted
             </span>
@@ -131,15 +139,15 @@ export const ServicesSection: React.FC = () => {
 
         {/* View More Services CTA */}
         <div className="w-full flex justify-center mt-16 md:mt-24">
-          <a
-            href="/services"
+          <Link
+            to="/services"
             className="group inline-flex items-center gap-4 text-xs font-bold tracking-widest text-sigmo-dark hover:text-sigmo-green transition-colors duration-300 uppercase"
           >
             <span>View More Services</span>
             <span className="w-8 h-8 rounded-full bg-sigmo-green text-white flex items-center justify-center group-hover:bg-emerald-600 transition-all duration-300 group-hover:scale-110 shadow-md">
-              <ChevronRight className="w-4 h-4" />
+              <ChevronRight className="w-4 h-4" aria-hidden="true" />
             </span>
-          </a>
+          </Link>
         </div>
 
       </div>

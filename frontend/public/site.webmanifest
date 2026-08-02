@@ -1,0 +1,23 @@
+{
+  "name": "SigmoIT — IT Company in Nepal",
+  "short_name": "SigmoIT",
+  "description": "Custom software, web and mobile app development, cloud and DevOps from Damak, Jhapa, Nepal.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#24a556",
+  "icons": [
+    {
+      "src": "/logo2.png",
+      "sizes": "any",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

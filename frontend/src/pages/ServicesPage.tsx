@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Database } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Footer } from "../components/Footer";
 
 const getGearPath = (
@@ -160,12 +161,16 @@ export const ServicesPage: React.FC = () => {
           </div>
 
           {/* More link indicator */}
-          <div className="mt-8 flex items-center gap-2 group/more">
+          <Link
+            to="/contact"
+            aria-label={`Discuss ${service.title} with SigmoIT`}
+            className="mt-8 flex items-center gap-2 group/more"
+          >
             <span className="text-[11px] font-extrabold tracking-widest text-[#0b3d1f] transition-colors duration-300 group-hover:text-[#24a556] uppercase select-none">
               MORE
             </span>
             <div className="w-8 h-[1px] bg-[#0b3d1f] transition-all duration-300 group-hover:w-12 group-hover:bg-[#24a556]" />
-          </div>
+          </Link>
         </div>
       </div>
     );
@@ -181,6 +186,8 @@ export const ServicesPage: React.FC = () => {
         {/* Gears Illustration (Animated SVG Line Art) */}
         <div className="relative z-10 w-[90%] max-w-[700px] flex items-center justify-center p-4">
           <svg
+            aria-hidden="true"
+            focusable="false"
             viewBox="0 0 900 380"
             className="w-full h-auto text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.15)] pointer-events-none select-none"
           >

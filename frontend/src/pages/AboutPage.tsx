@@ -94,8 +94,10 @@ const Typewriter: React.FC<{
 
   return (
     <span className="inline-flex items-baseline">
-      <span>{text.slice(0, count)}</span>
+      <span aria-hidden="true">{text.slice(0, count)}</span>
+      <span className="sr-only">{text}</span>
       <span
+        aria-hidden="true"
         className={`ml-2 inline-block w-[3px] self-stretch bg-white/80 ${
           done ? "animate-pulse" : ""
         }`}
@@ -348,9 +350,9 @@ export const AboutPage: React.FC = () => {
                   <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-[#021106]/85 via-[#021106]/35 to-transparent" />
 
                   <div className="absolute bottom-4 left-6 right-6 z-10 md:bottom-6">
-                    <p className="font-sans text-base font-bold leading-tight text-white md:text-lg">
+                    <h4 className="font-sans text-base font-bold leading-tight text-white md:text-lg">
                       {member.name}
-                    </p>
+                    </h4>
                     <p className="mt-1 text-[0.7rem] text-white/70 md:text-xs">
                       {member.tenure} ({member.role})
                     </p>

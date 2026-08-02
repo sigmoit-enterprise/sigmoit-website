@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Footer } from "../components/Footer";
 
 const PROJECTS = [
@@ -78,8 +79,8 @@ export const WorksPage: React.FC = () => {
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           className="relative z-10 pb-16 md:pb-20"
         >
-          <nav className="flex items-center gap-2 text-xs font-light tracking-[0.2em] uppercase text-white/50 mb-3">
-            <a href="/" className="hover:text-white/80 transition-colors">Home</a>
+          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs font-light tracking-[0.2em] uppercase text-white/50 mb-3">
+            <Link to="/" className="hover:text-white/80 transition-colors">Home</Link>
             <span className="text-white/30">/</span>
             <span className="text-white/80">Works</span>
           </nav>

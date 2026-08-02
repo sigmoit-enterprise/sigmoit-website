@@ -61,6 +61,9 @@ export const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose, o
 
   return (
     <div
+      role="dialog"
+      aria-modal="true"
+      aria-label="Search SigmoIT"
       className={`fixed inset-y-0 left-16 md:left-20 right-0 z-50 bg-[#071f11]/95 backdrop-blur-md flex flex-col justify-center items-center px-8 md:px-16 transition-all duration-500 ease-in-out transform overflow-hidden ${
         isOpen ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0 invisible pointer-events-none'
       }`}
@@ -127,11 +130,15 @@ export const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose, o
           <ul id="search-results" role="listbox" className="flex flex-col">
             {results.map((entry, index) => (
               <li key={entry.id}>
-                <button
+                <a
+                  href={entry.href}
                   role="option"
                   aria-selected={index === activeIndex}
                   onMouseEnter={() => setActiveIndex(index)}
-                  onClick={() => go(entry.href)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    go(entry.href);
+                  }}
                   className={`group w-full text-left px-4 py-4 rounded-xl flex items-start gap-4 transition-colors duration-200 focus:outline-none ${
                     index === activeIndex ? 'bg-white/10' : 'hover:bg-white/5'
                   }`}
@@ -142,9 +149,9 @@ export const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose, o
                         {entry.category}
                       </span>
                     </div>
-                    <h4 className="mt-1 text-lg md:text-xl font-rajdhani font-semibold text-white truncate">
+                    <p className="mt-1 text-lg md:text-xl font-rajdhani font-semibold text-white truncate">
                       {entry.title}
-                    </h4>
+                    </p>
                     <p className="mt-1 text-sm text-white/50 font-light line-clamp-2">
                       {entry.description}
                     </p>
@@ -154,7 +161,7 @@ export const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose, o
                       index === activeIndex ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
                     }`}
                   />
-                </button>
+                </a>
               </li>
             ))}
           </ul>

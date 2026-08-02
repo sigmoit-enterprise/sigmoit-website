@@ -2,6 +2,20 @@ import React from 'react';
 import { Clock, Smile, Rocket, Users } from 'lucide-react';
 import { Counter } from './Counter';
 
+/**
+ * Client logos. Names are spelled out rather than derived from the filename so
+ * alt text describes the brand instead of leaking things like
+ * "image-Photoroom (1)" into the accessibility tree and image search.
+ */
+const PARTNERS = [
+  { file: "Annapurna School Logo.webp", name: "Annapurna School" },
+  { file: "image-Photoroom (1).png", name: "Rishi Dashboard" },
+  { file: "image-Photoroom.png", name: "Sunrise Enterprises" },
+  { file: "Raising Diamond.png", name: "Rising Diamond" },
+  { file: "rishi_dashboard.png", name: "Rishi Dashboard" },
+  { file: "travelmasterlogo.png", name: "Travel Master" },
+];
+
 export const StatsAndOrganizations: React.FC = () => {
   const stats = [
     {
@@ -41,7 +55,10 @@ export const StatsAndOrganizations: React.FC = () => {
   return (
     <div id="about" className="w-full flex flex-col items-center bg-white pt-16 pb-8 md:pt-24 md:pb-12">
       {/* 1. Statistics Strip Section */}
-      <section className="w-full px-4 md:px-8 max-w-7xl mx-auto z-30">
+      <section
+        aria-label="SigmoIT by the numbers"
+        className="w-full px-4 md:px-8 max-w-7xl mx-auto z-30"
+      >
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 bg-transparent select-none">
           {stats.map((stat) => (
             <div
@@ -66,14 +83,20 @@ export const StatsAndOrganizations: React.FC = () => {
       </section>
 
       {/* 2. Trusted by Leading Organizations Section */}
-      <section className="w-full bg-[#f4faf6] border-t border-gray-100 py-16 md:py-24 px-6 md:px-12 lg:px-20 overflow-hidden">
+      <section
+        aria-labelledby="clients-heading"
+        className="w-full bg-[#f4faf6] border-t border-gray-100 py-16 md:py-24 px-6 md:px-12 lg:px-20 overflow-hidden"
+      >
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
           
           {/* Vertical Left Title (Rotates on desktop, displays normally on mobile) */}
           <div className="w-full lg:w-auto flex flex-col items-center lg:items-start justify-center lg:justify-start shrink-0 select-none">
             {/* Left/Top Accent Line */}
-            <div className="w-12 lg:w-[1.5px] h-[2px] lg:h-16 bg-gray-300/80 mb-4 lg:mb-6"></div>
-            <h2 className="lg:vertical-text text-center lg:text-left text-2xl md:text-3xl font-rajdhani font-bold tracking-wider leading-none text-sigmo-dark select-text uppercase lg:h-[350px] lg:mt-4">
+            <div
+              aria-hidden="true"
+              className="w-12 lg:w-[1.5px] h-[2px] lg:h-16 bg-gray-300/80 mb-4 lg:mb-6"
+            ></div>
+            <h2 id="clients-heading" className="lg:vertical-text text-center lg:text-left text-2xl md:text-3xl font-rajdhani font-bold tracking-wider leading-none text-sigmo-dark select-text uppercase lg:h-[350px] lg:mt-4">
               Trusted by Leading <span className="text-sigmo-green">Organizations</span>
             </h2>
           </div>
@@ -81,22 +104,18 @@ export const StatsAndOrganizations: React.FC = () => {
           {/* Right Logo Grid */}
           <div className="flex-1 w-full max-w-5xl">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {[
-                "Annapurna School Logo.webp",
-                "image-Photoroom (1).png",
-                "image-Photoroom.png",
-                "Raising Diamond.png",
-                "rishi_dashboard.png",
-                "travelmasterlogo.png",
-              ].map((src) => (
+              {PARTNERS.map((partner) => (
                 <div
-                  key={src}
+                  key={partner.file}
                   className="bg-white p-6 h-56 rounded border border-gray-100/50 shadow-sm hover:shadow-md flex items-center justify-center transition-all duration-300 group"
                 >
                   <img
-                    src={`/partners/${src}`}
-                    alt={src.replace(/\.[^.]+$/, "")}
+                    src={`/partners/${partner.file}`}
+                    alt={`${partner.name} — SigmoIT client`}
+                    width={240}
+                    height={128}
                     loading="lazy"
+                    decoding="async"
                     className="max-w-[85%] max-h-32 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
                   />
                 </div>

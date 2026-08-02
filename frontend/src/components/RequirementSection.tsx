@@ -35,8 +35,10 @@ const CyclingWord: React.FC = () => {
 
   return (
     <span className="inline-flex items-baseline text-white italic">
-      <span>{word.slice(0, count) || '​'}</span>
+      <span aria-hidden="true">{word.slice(0, count) || '​'}</span>
+      <span className="sr-only">{word}</span>
       <span
+        aria-hidden="true"
         className="ml-1.5 inline-block w-[3px] self-stretch bg-white/70 animate-pulse"
         style={{ minHeight: '0.9em' }}
       />

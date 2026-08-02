@@ -13,6 +13,8 @@ export const TalentSection: React.FC = () => {
         <img 
           src="/co-workers.jpg" 
           alt="Co-workers collaborating on laptop" 
+          loading="lazy"
+          decoding="async"
           className="w-[110%] h-full object-cover object-right select-none"
           style={{
             WebkitMaskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.05) 5%, rgba(0,0,0,0.8) 35%, rgba(0,0,0,1) 50%)',
@@ -57,15 +59,18 @@ export const TalentSection: React.FC = () => {
         <div className="w-full lg:hidden h-[320px] relative z-10 flex items-center justify-end mt-4">
           <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent z-15 pointer-events-none"></div>
           
-          <img 
-            src="/co-workers.jpg" 
-            alt="Co-workers collaborating on laptop" 
-            className="w-full h-full object-cover select-none opacity-95"
-            style={{
-              WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.05) 5%, rgba(0,0,0,0.8) 35%, rgba(0,0,0,1) 50%)',
-              maskImage: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.05) 5%, rgba(0,0,0,0.8) 35%, rgba(0,0,0,1) 50%)'
-            }}
-          />
+        <img 
+          src="/co-workers.jpg" 
+          alt="" 
+          aria-hidden="true"
+          loading="lazy"
+          decoding="async"
+          className="w-full h-full object-cover select-none opacity-95"
+          style={{
+            WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.05) 5%, rgba(0,0,0,0.8) 35%, rgba(0,0,0,1) 50%)',
+            maskImage: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.05) 5%, rgba(0,0,0,0.8) 35%, rgba(0,0,0,1) 50%)'
+          }}
+        />
         </div>
 
       </div>

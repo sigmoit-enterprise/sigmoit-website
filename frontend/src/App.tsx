@@ -17,11 +17,17 @@ import { WorksPage } from "./pages/WorksPage";
 import { ServicesPage } from "./pages/ServicesPage";
 import { AboutPage } from "./pages/AboutPage";
 import { ContactPage } from "./pages/ContactPage";
+import { BlogPage } from "./pages/BlogPage";
+import { BlogPostPage } from "./pages/BlogPostPage";
+import { CaseStudyPage } from "./pages/CaseStudyPage";
+import { NotFoundPage } from "./pages/NotFoundPage";
+import { Seo } from "./seo/Seo";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 
 interface SlideData {
   id: number;
   image: string;
+  alt: string;
   titlePrefix: string;
   titleHighlight: string;
   titleSuffix: string;
@@ -32,6 +38,7 @@ const SLIDES: SlideData[] = [
   {
     id: 1,
     image: "/slide1.png",
+    alt: "SigmoIT developers building web and software solutions at the Damak, Jhapa office",
     titlePrefix: "Top",
     titleHighlight: "IT Company",
     titleSuffix: "in Nepal for your business growth",
@@ -41,6 +48,7 @@ const SLIDES: SlideData[] = [
   {
     id: 2,
     image: "/slide2.png",
+    alt: "Custom software development and enterprise web systems engineered by SigmoIT in Nepal",
     titlePrefix: "Custom",
     titleHighlight: "Software Dev",
     titleSuffix: "tailored for scale and success",
@@ -50,6 +58,7 @@ const SLIDES: SlideData[] = [
   {
     id: 3,
     image: "/slide3.png",
+    alt: "Cloud infrastructure and DevOps monitoring managed by the SigmoIT team",
     titlePrefix: "Reliable",
     titleHighlight: "Cloud & DevOps",
     titleSuffix: "keeping systems fast and online",
@@ -63,13 +72,17 @@ const MENU_LINKS = [
   { label: "Services", href: "/services" },
   { label: "About Us", href: "/about" },
   { label: "Portfolio", href: "/works" },
+  { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
 
 const App: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [currentIndex, setCurrentIndex] = useState(1);
+  // Starts at 0 deliberately. The hero <h1> is driven by the active slide, so
+  // whichever slide is active at prerender time is the h1 crawlers read — and
+  // slide 1 is the one carrying the primary keyword ("Top IT Company in Nepal").
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [searchOpen, setSearchOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -143,6 +156,9 @@ const App: React.FC = () => {
 
   return (
     <div className="flex h-screen w-screen bg-white text-sigmo-dark overflow-hidden font-sans relative">
+      {/* Keeps title/canonical/OG/JSON-LD correct across client-side navigation */}
+      <Seo />
+
       {/* Brand Sidebar (Left) */}
       <Sidebar
         onSearchClick={() => setSearchOpen((prev) => !prev)}
@@ -169,7 +185,7 @@ const App: React.FC = () => {
             : "opacity-0 invisible pointer-events-none"
         }`}
       >
-        <nav className="flex flex-col items-center gap-8">
+        <nav aria-label="Main" className="flex flex-col items-center gap-8">
           {MENU_LINKS.map((link, idx) => (
             <a
               key={idx}
@@ -182,7 +198,10 @@ const App: React.FC = () => {
             </a>
           ))}
         </nav>
-        <div className="absolute bottom-12 text-center text-xs text-gray-400 font-medium tracking-widest uppercase">
+        <div
+          className="absolute bottom-12 text-center text-xs text-gray-400 font-medium tracking-widest uppercase"
+          suppressHydrationWarning
+        >
           © {new Date().getFullYear()} SigmoIT. All Rights Reserved.
         </div>
       </div>
@@ -208,9 +227,16 @@ const App: React.FC = () => {
                 {/* Hero Section Grid */}
                 <div className="w-full flex flex-col lg:flex-row h-auto lg:h-screen border-b border-gray-200 shrink-0">
                   {/* Left Side: Dynamic Carousel (Images, Controls, Count) */}
-                  <section className="w-full lg:w-1/2 h-[50vh] lg:h-full border-b lg:border-b-0 lg:border-r border-gray-200">
+                  <section
+                    aria-label="Featured work"
+                    className="w-full lg:w-1/2 h-[50vh] lg:h-full border-b lg:border-b-0 lg:border-r border-gray-200"
+                  >
                     <HeroSlider
-                      slides={SLIDES.map((s) => ({ id: s.id, image: s.image }))}
+                      slides={SLIDES.map((s) => ({
+                        id: s.id,
+                        image: s.image,
+                        alt: s.alt,
+                      }))}
                       currentIndex={currentIndex}
                       onNext={handleNext}
                       onPrev={handlePrev}
@@ -218,7 +244,10 @@ const App: React.FC = () => {
                   </section>
 
                   {/* Right Side: Core Brand Copy, Navigation, Call to Actions */}
-                  <section className="w-full lg:w-1/2 h-auto lg:h-full">
+                  <section
+                    aria-label="Introduction"
+                    className="w-full lg:w-1/2 h-auto lg:h-full"
+                  >
                     <HeroContent slides={SLIDES} currentIndex={currentIndex} />
                   </section>
                 </div>
@@ -265,9 +294,13 @@ const App: React.FC = () => {
             }
           />
           <Route path="/works" element={<WorksPage />} />
+          <Route path="/works/:slug" element={<CaseStudyPage />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:slug" element={<BlogPostPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
     </div>

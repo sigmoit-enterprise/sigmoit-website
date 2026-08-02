@@ -66,8 +66,16 @@ export const Counter: React.FC<CounterProps> = ({ target, duration = 1500, suffi
 
   return (
     <span ref={elementRef} className="tabular-nums">
-      {count}
-      {suffix}
+      <span aria-hidden="true">
+        {count}
+        {suffix}
+      </span>
+      {/* Static copy of the final value so prerendered HTML and screen
+          readers report the real number instead of "0" mid-animation. */}
+      <span className="sr-only">
+        {target}
+        {suffix}
+      </span>
     </span>
   );
 };

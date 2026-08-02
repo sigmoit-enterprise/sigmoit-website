@@ -4,6 +4,8 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 interface Slide {
   id: number;
   image: string;
+  /** Describes the image for search engines and screen readers. */
+  alt: string;
 }
 
 interface HeroSliderProps {
@@ -31,7 +33,14 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({
         >
           <img
             src={slide.image}
-            alt={`SigmoIT workspace slide ${index + 1}`}
+            alt={slide.alt}
+            width={1200}
+            height={900}
+            // The first slide is the LCP element, so it must load eagerly at
+            // high priority. The rest are offscreen until the carousel advances.
+            loading={index === 0 ? "eager" : "lazy"}
+            fetchPriority={index === 0 ? "high" : "low"}
+            decoding={index === 0 ? "sync" : "async"}
             className="w-full h-full object-cover transform scale-100 group-hover:scale-105 transition-transform duration-[4000ms] ease-out"
           />
           {/* Black overlay to focus attention */}

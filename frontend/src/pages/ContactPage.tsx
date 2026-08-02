@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { CheckCircle2, MapPin, AtSign, Phone, Clock, Send } from "lucide-react";
 import { Footer } from "../components/Footer";
 import {
@@ -114,14 +115,6 @@ export const ContactPage: React.FC = () => {
     }
   };
 
-  const handleWhatsApp = () => {
-    window.open(
-      `${WHATSAPP_LINK}?text=${encodeURIComponent(summary)}`,
-      "_blank",
-      "noopener,noreferrer",
-    );
-  };
-
   return (
     <div className="w-full min-h-screen flex flex-col">
       <section
@@ -155,8 +148,8 @@ export const ContactPage: React.FC = () => {
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           className="relative z-10 -mt-8 pb-16 md:mt-0 md:pb-20"
         >
-          <nav className="flex items-center gap-2 text-xs font-light tracking-[0.2em] uppercase text-white/50 mb-3">
-            <a href="/" className="hover:text-white/80 transition-colors">Home</a>
+          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs font-light tracking-[0.2em] uppercase text-white/50 mb-3">
+            <Link to="/" className="hover:text-white/80 transition-colors">Home</Link>
             <span className="text-white/30">/</span>
             <span className="text-white/80">Contact</span>
           </nav>
@@ -375,14 +368,15 @@ export const ContactPage: React.FC = () => {
                 <span>{submitting ? "Sending..." : "Send Enquiry"}</span>
                 <Send className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
               </button>
-              <button
-                type="button"
-                onClick={handleWhatsApp}
+              <a
+                href={`${WHATSAPP_LINK}?text=${encodeURIComponent(summary)}`}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex w-full items-center justify-center gap-2.5 rounded-xl border border-[#24a556]/40 bg-white/40 px-8 py-3.5 text-sm font-bold tracking-wide text-[#24a556] backdrop-blur-md transition-all duration-300 hover:border-[#24a556] hover:bg-[#24a556] hover:text-white sm:w-auto"
               >
                 <WhatsAppIcon className="h-4 w-4" />
                 <span>Send on WhatsApp</span>
-              </button>
+              </a>
             </div>
 
             <p className="mt-5 text-xs leading-relaxed text-[#1b1f22]/50">
