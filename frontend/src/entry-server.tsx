@@ -43,35 +43,35 @@ export function renderHead(pathname: string): string {
     : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
 
   const tags = [
-    `<title data-seo>${escapeAttr(meta.title)}</title>`,
-    `<meta data-seo name="description" content="${escapeAttr(meta.description)}" />`,
+    `<title>${escapeAttr(meta.title)}</title>`,
+    `<meta name="description" content="${escapeAttr(meta.description)}" data-seo />`,
     meta.keywords.length
-      ? `<meta data-seo name="keywords" content="${escapeAttr(meta.keywords.join(", "))}" />`
+      ? `<meta name="keywords" content="${escapeAttr(meta.keywords.join(", "))}" data-seo />`
       : "",
-    `<meta data-seo name="robots" content="${robots}" />`,
-    `<link data-seo rel="canonical" href="${escapeAttr(canonical)}" />`,
+    `<meta name="robots" content="${robots}" data-seo />`,
+    `<link rel="canonical" href="${escapeAttr(canonical)}" data-seo />`,
 
-    `<meta data-seo property="og:title" content="${escapeAttr(meta.title)}" />`,
-    `<meta data-seo property="og:description" content="${escapeAttr(meta.description)}" />`,
-    `<meta data-seo property="og:url" content="${escapeAttr(canonical)}" />`,
-    `<meta data-seo property="og:type" content="${meta.type ?? "website"}" />`,
+    `<meta property="og:title" content="${escapeAttr(meta.title)}" data-seo />`,
+    `<meta property="og:description" content="${escapeAttr(meta.description)}" data-seo />`,
+    `<meta property="og:url" content="${escapeAttr(canonical)}" data-seo />`,
+    `<meta property="og:type" content="${meta.type ?? "website"}" data-seo />`,
     meta.type === "article"
-      ? `<meta data-seo property="article:published_time" content="${escapeAttr(meta.publishedTime ?? "")}" />`
+      ? `<meta property="article:published_time" content="${escapeAttr(meta.publishedTime ?? "")}" data-seo />`
       : "",
     meta.type === "article" && meta.modifiedTime
-      ? `<meta data-seo property="article:modified_time" content="${escapeAttr(meta.modifiedTime)}" />`
+      ? `<meta property="article:modified_time" content="${escapeAttr(meta.modifiedTime)}" data-seo />`
       : "",
     meta.type === "article" && meta.section
-      ? `<meta data-seo property="article:section" content="${escapeAttr(meta.section)}" />`
+      ? `<meta property="article:section" content="${escapeAttr(meta.section)}" data-seo />`
       : "",
-    `<meta data-seo property="og:image" content="${escapeAttr(image)}" />`,
-    `<meta data-seo property="og:site_name" content="${escapeAttr(SITE_NAME)}" />`,
-    `<meta data-seo property="og:locale" content="en_US" />`,
+    `<meta property="og:image" content="${escapeAttr(image)}" data-seo />`,
+    `<meta property="og:site_name" content="${escapeAttr(SITE_NAME)}" data-seo />`,
+    `<meta property="og:locale" content="en_US" data-seo />`,
 
-    `<meta data-seo name="twitter:card" content="summary_large_image" />`,
-    `<meta data-seo name="twitter:title" content="${escapeAttr(meta.title)}" />`,
-    `<meta data-seo name="twitter:description" content="${escapeAttr(meta.description)}" />`,
-    `<meta data-seo name="twitter:image" content="${escapeAttr(image)}" />`,
+    `<meta name="twitter:card" content="summary_large_image" data-seo />`,
+    `<meta name="twitter:title" content="${escapeAttr(meta.title)}" data-seo />`,
+    `<meta name="twitter:description" content="${escapeAttr(meta.description)}" data-seo />`,
+    `<meta name="twitter:image" content="${escapeAttr(image)}" data-seo />`,
 
     `<meta name="author" content="${escapeAttr(SITE_NAME)}" />`,
     `<meta name="geo.region" content="NP-P1" />`,
@@ -84,7 +84,7 @@ export function renderHead(pathname: string): string {
     // Escaping < prevents any "</script>" inside content from closing the tag.
     const json = JSON.stringify(meta.jsonLd).replace(/</g, "\\u003c");
     tags.push(
-      `<script data-seo type="application/ld+json">${json}</script>`,
+      `<script type="application/ld+json" data-seo>${json}</script>`,
     );
   }
 

@@ -26,7 +26,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <div className="transform -rotate-90 origin-center my-6 flex items-center justify-center whitespace-nowrap">
             <img
               src="/logo.png"
-              alt=""
+              alt="SigmoIT logo"
               className="h-8 md:h-9 object-contain transition-transform duration-300 group-hover:scale-105"
             />
           </div>

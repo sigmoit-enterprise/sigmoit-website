@@ -36,6 +36,20 @@ if (/<title>/i.test(template)) {
   throw new Error("Fallback <title> was not stripped from the template");
 }
 
+/**
+ * Insert content just before the real closing </head> tag.
+ *
+ * Must target the LAST occurrence: the template's own explanatory comment
+ * literally contains "</head>" in its text, and the first occurrence inside
+ * a comment would swallow the injected head tags (stylesheet, script, title,
+ * metas, JSON-LD) — silently leaving every page unstyled and tag-less.
+ */
+function injectBeforeHead(html, content) {
+  const pos = html.lastIndexOf("</head>");
+  if (pos === -1) throw new Error("Could not find </head> in template");
+  return `${html.slice(0, pos)}${content}\n  </head>${html.slice(pos + "</head>".length)}`;
+}
+
 const { render, ROUTES, SITE_URL } = await import(
   pathToFileURL(join(ssrDir, "entry-server.js")).href
 );
@@ -53,9 +67,11 @@ for (const route of ROUTES) {
   try {
     const { appHtml, head } = render(route.path);
 
-    const html = template
+    const html = injectBeforeHead(
+      template,
       // Inject per-route head tags just before </head>.
-      .replace("</head>", `  ${head}\n  </head>`)
+      `  ${head}`,
+    )
       // Replace the empty root with the rendered markup, and flag it so the
       // client hydrates instead of re-rendering from scratch.
       .replace(
@@ -87,8 +103,7 @@ for (const route of ROUTES) {
 // which Google penalises as a duplicate).
 {
   const { appHtml, head } = render("/__not-found__");
-  const html = template
-    .replace("</head>", `  ${head}\n  </head>`)
+  const html = injectBeforeHead(template, `  ${head}`)
     .replace(
       /<div id="root"([^>]*)><\/div>/,
       `<div id="root"$1 data-prerendered="">${appHtml}</div>`,
@@ -101,9 +116,9 @@ for (const route of ROUTES) {
 // markup — hydration would mismatch — so it gets the bare template plus an
 // explicit noindex.
 {
-  const html = template.replace(
-    "</head>",
-    '  <title>Admin | SigmoIT</title>\n    <meta name="robots" content="noindex, nofollow" />\n  </head>',
+  const html = injectBeforeHead(
+    template,
+    '  <title>Admin | SigmoIT</title>\n    <meta name="robots" content="noindex, nofollow" />',
   );
   writeFileSync(join(distDir, "admin.html"), html, "utf-8");
   console.log("  admin.html   written");
