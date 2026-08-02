@@ -18,7 +18,7 @@ export const post: BlogPost = {
     "Google Business Profile Nepal",
     "technical SEO guide",
   ],
-  image: "/line-art/blogs.png",
+  image: "/blogs/SEO.jpg",
   imageAlt: "Illustration representing search engine optimisation",
   excerpt:
     "Most Nepali business websites don't rank because of one fixable technical reason, not because of competition. This is the order to fix things in, from highest impact to lowest.",

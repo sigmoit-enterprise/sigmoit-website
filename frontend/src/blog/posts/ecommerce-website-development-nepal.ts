@@ -18,7 +18,7 @@ export const post: BlogPost = {
     "Fonepay integration Nepal",
     "ecommerce cost Nepal",
   ],
-  image: "/project-images/ecommerce.png",
+  image: "/blogs/e-commerce.jpg",
   imageAlt: "An e-commerce storefront developed by SigmoIT",
   excerpt:
     "Building an online store in Nepal is less about the storefront and more about payments, delivery and cash on delivery. Get those three right and the rest is straightforward.",

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, ArrowRight, Clock, Calendar } from "lucide-react";
+import { ArrowLeft, Clock, Calendar } from "lucide-react";
 import { Footer } from "../components/Footer";
 import { getPost, relatedPosts, postPath } from "../blog";
 import { readingTime, headingId } from "../blog/types";
@@ -205,7 +205,7 @@ export const BlogPostPage: React.FC = () => {
     <div className="w-full min-h-screen flex flex-col">
       {/* Article header */}
       <header
-        className="relative w-full overflow-hidden px-6 pt-28 pb-16 md:pt-36 md:pb-20"
+        className="relative w-full min-h-screen overflow-hidden px-6 py-28 md:py-36"
         style={{
           background:
             "radial-gradient(ellipse 80% 90% at 50% 30%, #157a3c 0%, #0f5c2d 30%, #0a3f1f 58%, #06280f 80%, #021106 100%)",
@@ -216,61 +216,67 @@ export const BlogPostPage: React.FC = () => {
           <div className="absolute -right-16 bottom-0 h-80 w-80 rounded-full bg-white/5 blur-[110px]" />
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="relative z-10 mx-auto w-full max-w-[820px]"
-        >
-          <nav
-            aria-label="Breadcrumb"
-            className="mb-6 flex flex-wrap items-center gap-2 text-xs font-light uppercase tracking-[0.2em] text-white/50"
+        <div className="relative z-10 flex min-h-[calc(100vh-14rem)] items-center">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="w-full px-6 md:px-12 lg:px-16"
           >
-            <Link to="/" className="hover:text-white/80 transition-colors">
-              Home
-            </Link>
-            <span className="text-white/30" aria-hidden="true">
-              /
-            </span>
-            <Link to="/blog" className="hover:text-white/80 transition-colors">
-              Blog
-            </Link>
-            <span className="text-white/30" aria-hidden="true">
-              /
-            </span>
-            <span className="text-white/80">{post.category}</span>
-          </nav>
+            <nav
+              aria-label="Breadcrumb"
+              className="mb-6 flex flex-wrap items-center gap-2 text-xs font-light uppercase tracking-[0.2em] text-white/50"
+            >
+              <Link to="/" className="hover:text-white/80 transition-colors">
+                Home
+              </Link>
+              <span className="text-white/30" aria-hidden="true">
+                /
+              </span>
+              <Link
+                to="/blog"
+                className="hover:text-white/80 transition-colors"
+              >
+                Blog
+              </Link>
+              <span className="text-white/30" aria-hidden="true">
+                /
+              </span>
+              <span className="text-white/80">{post.category}</span>
+            </nav>
 
-          <h1 className="font-sans text-3xl sm:text-4xl md:text-[3.25rem] font-bold leading-[1.1] tracking-tight text-white">
-            {post.title}
-          </h1>
+            <h1 className="max-w-5xl font-sans text-3xl sm:text-4xl md:text-[3.25rem] font-bold leading-[1.1] tracking-tight text-white">
+              {post.title}
+            </h1>
 
-          <p className="mt-6 text-base md:text-lg font-light leading-relaxed text-white/70">
-            {post.excerpt}
-          </p>
+            <p className="mt-6 max-w-4xl text-base md:text-lg font-light leading-relaxed text-white/70">
+              {post.excerpt}
+            </p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs font-medium text-white/50">
-            <span className="text-white/80">{post.author}</span>
-            <span className="inline-flex items-center gap-1.5">
-              <Calendar className="h-3.5 w-3.5" aria-hidden="true" />
-              <time dateTime={post.datePublished}>
-                {formatDate(post.datePublished)}
-              </time>
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <Clock className="h-3.5 w-3.5" aria-hidden="true" />
-              {readingTime(post)} min read
-            </span>
-            {post.dateModified && post.dateModified !== post.datePublished && (
-              <span>Updated {formatDate(post.dateModified)}</span>
-            )}
-          </div>
-        </motion.div>
+            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs font-medium text-white/50">
+              <span className="text-white/80">{post.author}</span>
+              <span className="inline-flex items-center gap-1.5">
+                <Calendar className="h-3.5 w-3.5" aria-hidden="true" />
+                <time dateTime={post.datePublished}>
+                  {formatDate(post.datePublished)}
+                </time>
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <Clock className="h-3.5 w-3.5" aria-hidden="true" />
+                {readingTime(post)} min read
+              </span>
+              {post.dateModified &&
+                post.dateModified !== post.datePublished && (
+                  <span>Updated {formatDate(post.dateModified)}</span>
+                )}
+            </div>
+          </motion.div>
+        </div>
       </header>
 
       {/* Article body */}
       <section className="w-full bg-white px-6 py-16 md:py-24">
-        <article className="mx-auto w-full max-w-[820px]">
+        <article className="mx-auto w-full max-w-6xl">
           {/* Table of contents */}
           {tableOfContents.length > 2 && (
             <nav
@@ -342,43 +348,13 @@ export const BlogPostPage: React.FC = () => {
               </div>
             </section>
           )}
-
-          {/* Author / CTA */}
-          <aside className="mt-16 rounded-[24px] bg-[#082813] p-8 md:p-10">
-            <p className="text-xs font-bold uppercase tracking-widest text-[#24a556]">
-              Written by {post.author}
-            </p>
-            <h2 className="mt-3 font-sans text-xl md:text-2xl font-bold tracking-tight text-white">
-              Want this done properly for your business?
-            </h2>
-            <p className="mt-3 text-sm md:text-base leading-relaxed text-white/70">
-              SigmoIT builds websites, mobile apps and custom software from
-              Damak-8, Jhapa, for clients across Nepal and internationally.
-              Tell us what you need and we'll scope it, free.
-            </p>
-            <div className="mt-7 flex flex-wrap gap-3">
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 rounded-full bg-[#24a556] px-6 py-3 text-xs font-bold uppercase tracking-widest text-white transition-all duration-300 hover:gap-3 hover:bg-[#1f9049]"
-              >
-                Start a project{" "}
-                <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Link>
-              <Link
-                to="/services"
-                className="inline-flex items-center gap-2 rounded-full border border-white/25 px-6 py-3 text-xs font-bold uppercase tracking-widest text-white/85 transition-all duration-300 hover:border-white/60 hover:text-white"
-              >
-                See our services
-              </Link>
-            </div>
-          </aside>
         </article>
       </section>
 
       {/* Related posts */}
       {related.length > 0 && (
         <section className="w-full bg-[#f0f4f1] px-6 py-16 md:py-24">
-          <div className="mx-auto w-full max-w-[1200px]">
+          <div className="mx-auto w-full max-w-6xl">
             <h2 className="font-sans text-2xl md:text-3xl font-bold tracking-tight text-[#0b3d1f]">
               Keep reading
             </h2>

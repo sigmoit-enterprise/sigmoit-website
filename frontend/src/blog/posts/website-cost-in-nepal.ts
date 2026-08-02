@@ -18,7 +18,7 @@ export const post: BlogPost = {
     "mobile app development cost Nepal",
     "website maintenance cost Nepal",
   ],
-  image: "/project-images/ecommerce.png",
+  image: "/blogs/development-cost.jpg",
   imageAlt: "A custom e-commerce website built by SigmoIT",
   excerpt:
     "Ask five companies in Nepal what a website costs and you'll get answers from Rs. 8,000 to Rs. 8,00,000. Both ends are real. Here's exactly what separates them, with the numbers written down.",

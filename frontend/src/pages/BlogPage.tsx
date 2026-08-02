@@ -226,24 +226,6 @@ export const BlogPage: React.FC = () => {
               </motion.article>
             ))}
           </div>
-
-          {/* CTA */}
-          <div className="mt-20 rounded-[24px] bg-[#082813] px-8 py-14 text-center md:px-16">
-            <h2 className="font-sans text-2xl md:text-3xl font-bold tracking-tight text-white">
-              Have a project in mind?
-            </h2>
-            <p className="mx-auto mt-3 max-w-xl text-sm md:text-base leading-relaxed text-white/70">
-              Tell us what you're trying to build and we'll scope it — a fixed
-              price, a realistic timeline, and an honest note on anything we
-              think you shouldn't pay for yet.
-            </p>
-            <Link
-              to="/contact"
-              className="mt-7 inline-flex items-center gap-2 rounded-full bg-[#24a556] px-7 py-3.5 text-xs font-bold uppercase tracking-widest text-white transition-all duration-300 hover:gap-3 hover:bg-[#1f9049]"
-            >
-              Get in touch <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </Link>
-          </div>
         </div>
       </section>
 

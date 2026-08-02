@@ -18,7 +18,7 @@ export const post: BlogPost = {
     "Android app development Nepal",
     "iOS app development Nepal",
   ],
-  image: "/tools-technology/android-character-symbol.png",
+  image: "/blogs/application-development.jpg",
   imageAlt: "Mobile application development at SigmoIT",
   excerpt:
     "Most businesses in Nepal that want an app don't need one — they need a fast mobile website. For the ones that genuinely do, here's what it costs and how long it takes.",
