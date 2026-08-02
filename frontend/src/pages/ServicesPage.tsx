@@ -73,6 +73,12 @@ const SERVICES: Service[] = [
     description: "Rich in User Experience, Rock-Solid in performance",
   },
   {
+    title: "AI Automation\nSolutions",
+    description:
+      "We leverage AI to automate your business processes and enhance efficiency",
+    isSpecial: true,
+  },
+  {
     title: "Artifical\nIntelligence",
     description:
       "We harness the power of AI to transform your business processes and decision-making",
