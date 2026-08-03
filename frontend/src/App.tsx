@@ -8,6 +8,7 @@ import { StatsAndOrganizations } from "./components/StatsAndOrganizations";
 import { ToolsAndTechnologies } from "./components/ToolsAndTechnologies";
 import { ServicesSection } from "./components/ServicesSection";
 import { TalentSection } from "./components/TalentSection";
+import { CrystalSection } from "./components/CrystalSection";
 import { ContactActions } from "./components/ContactActions";
 import { RequirementSection } from "./components/RequirementSection";
 import { WorksSection } from "./components/WorksSection";
@@ -260,6 +261,9 @@ const App: React.FC = () => {
 
                 {/* Services Showcase Section */}
                 <ServicesSection />
+
+                {/* Brave Search API Crystal Showcase Section */}
+                <CrystalSection />
 
                 {/* Interactive Brand Wordmark Section */}
                 <section className="relative w-full bg-white border-t border-gray-100 h-[24rem] md:h-[32rem] flex items-center justify-center overflow-hidden">

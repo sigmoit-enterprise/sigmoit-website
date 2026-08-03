@@ -3,10 +3,7 @@ import { motion } from "framer-motion";
 import { Link, useParams } from "react-router-dom";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Footer } from "../components/Footer";
-import {
-  getCaseStudy,
-  relatedCaseStudies,
-} from "../data/caseStudies";
+import { getCaseStudy, relatedCaseStudies } from "../data/caseStudies";
 
 export const CaseStudyPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -22,13 +19,13 @@ export const CaseStudyPage: React.FC = () => {
         <h1 className="font-sans text-4xl md:text-5xl font-bold text-[#0b3d1f]">
           Project not found
         </h1>
-        <p className="max-w-md text-center text-sm text-[#1b1f22]/70">
+        <p className="max-w-md text-center text-sm text-sigmo-dark/70">
           This case study doesn&apos;t exist or may have moved. Browse the full
           portfolio instead.
         </p>
         <Link
           to="/works"
-          className="inline-flex items-center gap-2 rounded-lg bg-[#24a556] px-6 py-3 text-sm font-bold text-white"
+          className="inline-flex items-center gap-2 rounded-lg bg-sigmo-green px-6 py-3 text-sm font-bold text-white"
         >
           View portfolio <ArrowRight className="h-4 w-4" />
         </Link>
@@ -50,7 +47,7 @@ export const CaseStudyPage: React.FC = () => {
         }}
       >
         <div aria-hidden className="pointer-events-none absolute inset-0">
-          <div className="absolute -left-20 top-16 h-72 w-72 rounded-full bg-[#24a556]/25 blur-[100px]" />
+          <div className="absolute -left-20 top-16 h-72 w-72 rounded-full bg-sigmo-green/25 blur-[100px]" />
           <div className="absolute -right-16 bottom-10 h-80 w-80 rounded-full bg-white/5 blur-[110px]" />
         </div>
 
@@ -58,7 +55,7 @@ export const CaseStudyPage: React.FC = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="relative z-10 w-full max-w-[1080px] mx-auto pb-16 md:pb-24 pt-32"
+          className="relative z-10 w-full max-w-270 mx-auto pb-16 md:pb-24 pt-32"
         >
           <nav
             aria-label="Breadcrumb"
@@ -89,20 +86,20 @@ export const CaseStudyPage: React.FC = () => {
 
       {/* Project image */}
       <section className="w-full bg-[#f0f4f1] px-6">
-        <div className="mx-auto w-full max-w-[1080px] -mt-10 md:-mt-16 relative z-10">
+        <div className="mx-auto w-full max-w-270 -mt-10 md:-mt-16 relative z-10">
           <img
             src={study.image}
             alt={`${study.name} — ${study.category} project built by SigmoIT`}
             width={1080}
             height={608}
-            className="w-full rounded-[28px] object-cover aspect-[16/9] shadow-[0_24px_64px_-16px_rgba(11,61,31,0.35)]"
+            className="w-full rounded-[28px] object-cover aspect-video shadow-[0_24px_64px_-16px_rgba(11,61,31,0.35)]"
           />
         </div>
       </section>
 
       {/* Overview */}
       <section className="w-full bg-[#f0f4f1] px-6 py-20 md:py-28">
-        <div className="mx-auto w-full max-w-[1080px]">
+        <div className="mx-auto w-full max-w-270">
           <h2 className="font-sans text-3xl md:text-4xl font-bold tracking-tight text-[#0b3d1f]">
             Project Overview
           </h2>
@@ -111,7 +108,7 @@ export const CaseStudyPage: React.FC = () => {
               {study.overview.map((paragraph) => (
                 <p
                   key={paragraph.slice(0, 40)}
-                  className="text-sm md:text-base leading-relaxed text-[#1b1f22]/75"
+                  className="text-sm md:text-base leading-relaxed text-sigmo-dark/75"
                 >
                   {paragraph}
                 </p>
@@ -119,27 +116,27 @@ export const CaseStudyPage: React.FC = () => {
             </div>
             <aside
               aria-label={`${study.name} project facts`}
-              className="h-fit rounded-[24px] border border-white/60 bg-white/60 p-7 backdrop-blur-xl"
+              className="h-fit rounded-3xl border border-white/60 bg-white/60 p-7 backdrop-blur-xl"
             >
               <h3 className="font-sans text-lg font-bold text-[#0b3d1f]">
                 At a glance
               </h3>
               <dl className="mt-5 space-y-4 text-sm">
                 <div>
-                  <dt className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#24a556]">
+                  <dt className="text-[11px] font-bold uppercase tracking-[0.2em] text-sigmo-green">
                     Client
                   </dt>
-                  <dd className="mt-1 text-[#1b1f22]/75">{study.client}</dd>
+                  <dd className="mt-1 text-sigmo-dark/75">{study.client}</dd>
                 </div>
                 <div>
-                  <dt className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#24a556]">
+                  <dt className="text-[11px] font-bold uppercase tracking-[0.2em] text-sigmo-green">
                     Services
                   </dt>
                   <dd className="mt-1 flex flex-wrap gap-1.5">
                     {study.services.map((service) => (
                       <span
                         key={service}
-                        className="rounded-full border border-[#24a556]/25 bg-[#24a556]/10 px-2.5 py-1 text-xs text-[#0b3d1f]"
+                        className="rounded-full border border-sigmo-green/25 bg-sigmo-green/10 px-2.5 py-1 text-xs text-[#0b3d1f]"
                       >
                         {service}
                       </span>
@@ -147,11 +144,34 @@ export const CaseStudyPage: React.FC = () => {
                   </dd>
                 </div>
                 <div>
-                  <dt className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#24a556]">
+                  <dt className="text-[11px] font-bold uppercase tracking-[0.2em] text-sigmo-green">
                     Tech stack
                   </dt>
-                  <dd className="mt-1 text-[#1b1f22]/75">{study.tech.join(", ")}</dd>
+                  <dd className="mt-1 text-sigmo-dark/75">
+                    {study.tech.join(", ")}
+                  </dd>
                 </div>
+                {study.liveUrl ? (
+                  <div>
+                    <dt className="text-[11px] font-bold uppercase tracking-[0.2em] text-sigmo-green">
+                      Live link
+                    </dt>
+                    <dd className="mt-1">
+                      <a
+                        href={study.liveUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-2 text-[#0b3d1f] underline decoration-sigmo-green/40 underline-offset-4 transition-colors hover:text-sigmo-green"
+                      >
+                        <span>{study.liveUrlLabel ?? "Visit live site"}</span>
+                        <ArrowRight
+                          className="h-3.5 w-3.5"
+                          aria-hidden="true"
+                        />
+                      </a>
+                    </dd>
+                  </div>
+                ) : null}
               </dl>
             </aside>
           </div>
@@ -160,7 +180,7 @@ export const CaseStudyPage: React.FC = () => {
 
       {/* Highlights */}
       <section className="w-full bg-white border-y border-gray-100 px-6 py-20 md:py-28">
-        <div className="mx-auto w-full max-w-[1080px]">
+        <div className="mx-auto w-full max-w-270">
           <h2 className="font-sans text-3xl md:text-4xl font-bold tracking-tight text-[#0b3d1f]">
             What we delivered
           </h2>

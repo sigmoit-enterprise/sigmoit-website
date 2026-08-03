@@ -15,6 +15,8 @@ export interface CaseStudy {
   name: string;
   category: string;
   image: string;
+  liveUrl?: string;
+  liveUrlLabel?: string;
   description: string;
   overview: string[];
   highlights: CaseStudyHighlight[];
@@ -28,184 +30,233 @@ export interface CaseStudy {
 
 export const CASE_STUDIES: CaseStudy[] = [
   {
-    slug: "svlc-law-firm",
-    name: "SVLC Law Firm",
-    category: "Brand Identity",
-    image: "/project-images/ecommerce.png",
-    description:
-      "A complete digital presence for a law firm — identity, website, and search-ready content structure.",
-    overview: [
-      "SVLC approached us needing more than a website: they needed a digital presence that could carry the weight of a legal practice — credibility first, everything else second. We started with the identity system, then designed and built a website that makes it easy for potential clients to understand the practice areas, the team, and how to get in touch.",
-      "The project covered brand identity, website design and development, and the on-page SEO groundwork. Every page was structured around the questions a client actually asks before picking up the phone, which is also what made the site straightforward to rank for local legal searches.",
-    ],
-    highlights: [
-      {
-        title: "Identity first",
-        text: "A refined logo and colour system that feels established, not generic — the visual baseline every other asset now builds on.",
-      },
-      {
-        title: "Practice-area pages",
-        text: "Each service area got its own page with clear copy and a direct contact path, so visitors never have to hunt for a way to reach the firm.",
-      },
-      {
-        title: "SEO-ready structure",
-        text: "Semantic markup, descriptive titles, and content organised around client intent from day one — no retrofitting later.",
-      },
-    ],
-    services: ["Brand Identity", "Web Design", "Web Development", "On-page SEO"],
-    tech: ["React", "TypeScript", "Node.js", "PostgreSQL"],
-    results: [
-      { value: "100%", label: "new site from scratch" },
-      { value: "6", label: "practice-area pages" },
-      { value: "4.2x", label: "faster than the old site" },
-    ],
-    year: "2025",
-    client: "Law firm, Nepal",
-    path: "/works/svlc-law-firm",
-  },
-  {
-    slug: "next-stop-nepal",
-    name: "Next Stop Nepal",
-    category: "Web Application",
-    image: "/project-images/fooddelivary.png",
-    description:
-      "A travel platform connecting visitors with curated local experiences across Nepal.",
-    overview: [
-      "Next Stop Nepal wanted to move travellers past the same three temples and turn local experiences — homestays, guided treks, cultural workshops — into bookable products. We built a web application that treats discovery and booking as one seamless flow.",
-      "The product pairs a searchable catalogue of experiences with structured listing pages, making the content easy to index. On the operational side, an admin dashboard lets the team manage listings, pricing and availability without touching code.",
-    ],
-    highlights: [
-      {
-        title: "Curated discovery",
-        text: "Location- and category-based browsing that surfaces the right experiences without overwhelming the traveller.",
-      },
-      {
-        title: "Booking flow",
-        text: "A short, clear path from listing to confirmation — designed to work well on the patchy mobile networks common in travel.",
-      },
-      {
-        title: "Admin control",
-        text: "The team manages every listing, price and slot from a dashboard, so content stays fresh and indexable.",
-      },
-    ],
-    services: ["Product Strategy", "Web Application", "UI/UX Design", "Admin Dashboard"],
-    tech: ["React", "Node.js", "PostgreSQL", "Mapbox"],
-    results: [
-      { value: "40+", label: "experiences listed at launch" },
-      { value: "3-step", label: "booking flow" },
-      { value: "0", label: "plugins — built to spec" },
-    ],
-    year: "2025",
-    client: "Travel platform, Nepal",
-    path: "/works/next-stop-nepal",
-  },
-  {
-    slug: "tutor-connect",
-    name: "Tutor Connect",
-    category: "EdTech",
-    image: "/project-images/my-personal-tutors.png",
-    description:
-      "A marketplace bridging students and educators — profiles, scheduling and session management in one place.",
-    overview: [
-      "Finding a good tutor in Nepal usually meant asking around. Tutor Connect set out to fix that with a marketplace where students can browse verified tutor profiles, compare qualifications, and book sessions directly.",
-      "We designed the platform around trust: tutor profiles carry credentials and subjects, reviews anchor each booking, and the scheduling system removes the back-and-forth that kills most tutoring relationships.",
-    ],
-    highlights: [
-      {
-        title: "Profile discovery",
-        text: "Filterable tutor profiles with subject, level and location data — the content core that also drives search visibility.",
-      },
-      {
-        title: "Scheduling built in",
-        text: "Students pick slots from live availability; both sides get confirmation and reminders without extra tools.",
-      },
-      {
-        title: "Session management",
-        text: "A shared view of past and upcoming sessions keeps students, parents and tutors on the same page.",
-      },
-    ],
-    services: ["Marketplace Design", "Web Application", "UI/UX Design", "Database Modelling"],
-    tech: ["React", "TypeScript", "Node.js", "PostgreSQL"],
-    results: [
-      { value: "2x", label: "quicker booking than chat-based" },
-      { value: "100%", label: "profiles with verified subjects" },
-      { value: "1", label: "dashboard for students and tutors" },
-    ],
-    year: "2025",
-    client: "EdTech startup, Nepal",
-    path: "/works/tutor-connect",
-  },
-  {
-    slug: "rising-diamond",
-    name: "Rising Diamond",
-    category: "Corporate Website",
+    slug: "rising-diamond-consultancy",
+    name: "Rising Diamond Consultancy",
+    category: "Education & Career Guidance",
     image: "/project-images/Rising%20Diamond.jpg",
+    liveUrl: "https://www.risingdiamond.info/",
+    liveUrlLabel: "Visit live site",
     description:
-      "An elegant digital presence for a luxury brand — visual identity, web design and launch-ready content.",
+      "An international education and career guidance website designed to build trust, explain services clearly, and convert enquiries.",
     overview: [
-      "Rising Diamond needed a corporate website that communicated luxury without saying a word too many. The brief was about restraint: strong typography, generous space, and a brand system that could carry print and digital alike.",
-      "We delivered a complete identity and a single-page-scale site with dedicated service and gallery sections. The design works equally well on a phone in a showroom as on a desktop in a boardroom.",
+      "Rising Diamond Consultancy needed a polished online presence that could speak to students and families looking for guidance on international study and career pathways. We shaped the site around clarity, credibility, and a simple path to enquiry.",
+      "The final experience balances aspirational branding with practical information. Service sections, trust signals, and contact prompts are all structured so visitors can quickly understand what the consultancy offers and how to start a conversation.",
     ],
     highlights: [
       {
-        title: "Refined identity",
-        text: "A considered logo, palette and type pairing chosen to signal permanence and quality.",
+        title: "Trust-led presentation",
+        text: "A calm, professional layout that positions the consultancy as credible from the first screen.",
       },
       {
-        title: "Editorial layout",
-        text: "Full-bleed imagery and quiet typography that let the product photography do the selling.",
+        title: "Clear service structure",
+        text: "Education and career guidance offerings are grouped so visitors can scan and compare quickly.",
       },
       {
-        title: "Fast by design",
-        text: "Optimised imagery and minimal dependencies keep the experience instant even on slower connections.",
+        title: "Conversion-ready contact flow",
+        text: "Calls to action stay visible throughout the page so enquiries never feel buried.",
       },
     ],
-    services: ["Brand Identity", "Web Design", "Web Development", "Photography Direction"],
-    tech: ["React", "Tailwind CSS", "Vercel"],
+    services: ["Web Design", "Web Development", "Brand Presentation", "Lead Generation"],
+    tech: ["React", "TypeScript", "Vite", "Vercel"],
     results: [
-      { value: "0.9s", label: "median load time" },
-      { value: "100", label: "Lighthouse performance" },
-      { value: "5", label: "site sections, one brand voice" },
+      { value: "1", label: "live consultancy website" },
+      { value: "100%", label: "mobile-friendly layout" },
+      { value: "3", label: "primary conversion paths" },
     ],
-    year: "2024",
-    client: "Luxury brand, Nepal",
-    path: "/works/rising-diamond",
+    year: "2025",
+    client: "Rising Diamond Consultancy",
+    path: "/works/rising-diamond-consultancy",
   },
   {
-    slug: "terminal-ui",
-    name: "Terminal UI",
-    category: "Web Application",
-    image: "/project-images/terminalwebsite.png",
+    slug: "travel-master-thailand",
+    name: "Travel Master Thailand",
+    category: "Travel & Tour Packages",
+    image: "/project-images/fooddelivary.png",
+    liveUrl: "https://www.travelmasterthailand.com/",
+    liveUrlLabel: "Visit live site",
     description:
-      "A developer-centric interface with a tactile, terminal-inspired feel engineered by SigmoIT.",
+      "An expert Thailand travel website built to showcase curated tour packages, destinations, and booking enquiries.",
     overview: [
-      "Terminal UI was a chance to prove that developer tools don't have to look like every other admin panel. The product — a command-driven operations console — was designed around a terminal metaphor that rewards users who know their shortcuts.",
-      "Beyond the aesthetic, we focused on real usability: keyboard-first navigation, instant search across logs and resources, and a command palette that puts every action one keystroke away.",
+      "Travel Master Thailand needed a site that could sell the idea of a trip before a visitor ever reached the contact form. We focused on destination-led storytelling, package clarity, and a visual rhythm that feels energetic without becoming crowded.",
+      "The structure makes it easy for travellers to scan tour options, understand what is included, and move towards an enquiry. It is designed to support both inspiration and conversion in the same flow.",
     ],
     highlights: [
       {
-        title: "Keyboard-first",
-        text: "Every action is reachable from the keyboard, with a command palette as the primary entry point.",
+        title: "Package-focused layout",
+        text: "Tour options are presented as clear blocks so visitors can compare trips without friction.",
       },
       {
-        title: "Instant search",
-        text: "Logs and resources are searchable in real time, with results that narrow as you type.",
+        title: "Strong destination imagery",
+        text: "Large visual moments create the right sense of travel and momentum through the page.",
       },
       {
-        title: "Tactile aesthetic",
-        text: "A terminal-inspired visual language that is memorable without sacrificing legibility or hierarchy.",
+        title: "Enquiry-first conversion",
+        text: "Prominent contact prompts keep the path from browsing to booking simple.",
       },
     ],
-    services: ["Product Design", "Web Application", "UI/UX Design", "Frontend Engineering"],
-    tech: ["React", "TypeScript", "WebSockets", "Node.js"],
+    services: ["Web Design", "Web Development", "Content Structure", "Lead Generation"],
+    tech: ["React", "TypeScript", "Tailwind CSS", "Vercel"],
     results: [
-      { value: "70%", label: "of actions keyboard-only" },
-      { value: "<50ms", label: "search response time" },
-      { value: "3x", label: "faster than the old panel" },
+      { value: "1", label: "tour website launched" },
+      { value: "3", label: "key inquiry sections" },
+      { value: "100%", label: "responsive across devices" },
     ],
-    year: "2024",
-    client: "Developer tools, international",
-    path: "/works/terminal-ui",
+    year: "2025",
+    client: "Travel Master Thailand",
+    path: "/works/travel-master-thailand",
+  },
+  {
+    slug: "nestora-home-decor",
+    name: "Nestora Home Decor",
+    category: "Home Decor Store",
+    image: "/project-images/ecommerce.png",
+    liveUrl: "https://nestorahomedecor.com.au/",
+    liveUrlLabel: "Visit live site",
+    description:
+      "A modern home decor storefront created to showcase products beautifully and support direct online discovery.",
+    overview: [
+      "Nestora Home Decor needed a storefront that felt aspirational while still being easy to browse on a phone. The design gives product photography room to breathe while keeping the shopping path obvious.",
+      "We structured the experience so customers can move from discovery to product interest without losing context. The result feels premium, organised, and ready for e-commerce growth.",
+    ],
+    highlights: [
+      {
+        title: "Product-led browsing",
+        text: "The layout keeps home decor collections front and centre with minimal distraction.",
+      },
+      {
+        title: "Elegant storefront styling",
+        text: "Warm spacing and clean typography make the brand feel premium and calm.",
+      },
+      {
+        title: "Easy purchase journey",
+        text: "Clear calls to action support product exploration and buying intent.",
+      },
+    ],
+    services: ["E-commerce Design", "Web Development", "Product Presentation", "Conversion UX"],
+    tech: ["React", "TypeScript", "Shop-ready UI", "Vercel"],
+    results: [
+      { value: "1", label: "live home decor store" },
+      { value: "100%", label: "responsive storefront" },
+      { value: "3", label: "paths into product discovery" },
+    ],
+    year: "2025",
+    client: "Nestora Home Decor",
+    path: "/works/nestora-home-decor",
+  },
+  {
+    slug: "lash-glow-up-beauty",
+    name: "Lash & Glow Up Beauty",
+    category: "Beauty Studio Website",
+    image: "/project-images/terminalwebsite.png",
+    liveUrl: "https://www.lashglowbeauty.com/",
+    liveUrlLabel: "Visit live site",
+    description:
+      "A professional beauty website for lash extensions, brows, and skincare services in Victoria.",
+    overview: [
+      "Lash & Glow Up Beauty needed a website that felt polished, feminine, and easy to trust at a glance. We leaned into clean composition and service-first messaging so the brand comes across as professional rather than over-styled.",
+      "The site highlights lash, brow, and skincare offerings in a way that makes booking feel straightforward. It balances beauty-brand atmosphere with enough practical detail to support real appointment enquiries.",
+    ],
+    highlights: [
+      {
+        title: "Service clarity",
+        text: "Each beauty treatment is easy to understand, which reduces hesitation before booking.",
+      },
+      {
+        title: "Soft but confident art direction",
+        text: "A refined visual tone that feels elevated without losing warmth.",
+      },
+      {
+        title: "Appointment-led journey",
+        text: "Contact and booking prompts stay visible so the next step is always obvious.",
+      },
+    ],
+    services: ["Web Design", "Web Development", "Brand Presentation", "Booking UX"],
+    tech: ["React", "TypeScript", "Tailwind CSS", "Vercel"],
+    results: [
+      { value: "1", label: "live beauty booking site" },
+      { value: "100%", label: "mobile-ready design" },
+      { value: "3", label: "service categories showcased" },
+    ],
+    year: "2025",
+    client: "Lash & Glow Up Beauty",
+    path: "/works/lash-glow-up-beauty",
+  },
+  {
+    slug: "annapurna-english-school",
+    name: "Annapurna English School",
+    category: "School Website",
+    image: "/project-images/my-personal-tutors.png",
+    liveUrl: "https://annapurna-english-school.vercel.app/",
+    liveUrlLabel: "Visit live site",
+    description:
+      "A school website for Ratuwamai, Morang, built to present academic information, trust signals, and admissions clearly.",
+    overview: [
+      "Annapurna English School needed a site that could serve parents, students, and administrators without feeling cluttered. We focused on a straightforward structure that makes school information easy to access.",
+      "Admissions details, school identity, and key sections are organised so the website feels dependable and easy to maintain. The result supports a school audience that values clarity over complexity.",
+    ],
+    highlights: [
+      {
+        title: "Admissions clarity",
+        text: "The site makes it easy for families to find the most important school information quickly.",
+      },
+      {
+        title: "Trust-building layout",
+        text: "A simple structure helps the school present itself as organised and reliable.",
+      },
+      {
+        title: "Easy maintenance",
+        text: "The content model is intentionally simple so school updates stay manageable.",
+      },
+    ],
+    services: ["Web Design", "Web Development", "Information Architecture", "Admissions UX"],
+    tech: ["React", "TypeScript", "Vite", "Vercel"],
+    results: [
+      { value: "1", label: "live school website" },
+      { value: "100%", label: "mobile-friendly pages" },
+      { value: "3", label: "core audience groups served" },
+    ],
+    year: "2025",
+    client: "Annapurna English School",
+    path: "/works/annapurna-english-school",
+  },
+  {
+    slug: "bhandari-pariwar-app",
+    name: "Bhandari Pariwar App",
+    category: "Mobile App",
+    image: "/project-images/terminalwebsite.png",
+    liveUrl:
+      "https://play.google.com/store/apps/details?id=com.bhandaripariwar.bhandari_pariwar&pcampaignid=web_share",
+    liveUrlLabel: "Open Play Store",
+    description:
+      "A mobile app for the Bhandari Pariwar community, built for easy access on Android devices.",
+    overview: [
+      "The Bhandari Pariwar app was created to give the community a simple mobile experience that can be shared and accessed easily from Android devices. The emphasis was on accessibility, directness, and a clean presentation layer.",
+      "The app experience is designed to feel lightweight and approachable, with the Play Store entry acting as the public distribution point for users who want to install it quickly.",
+    ],
+    highlights: [
+      {
+        title: "Mobile-first delivery",
+        text: "The project is packaged for Android users with a direct path to install from the Play Store.",
+      },
+      {
+        title: "Community-focused use",
+        text: "The experience is structured around a specific audience rather than a generic product audience.",
+      },
+      {
+        title: "Simple access",
+        text: "A straightforward app presence makes it easier for users to discover and open the product.",
+      },
+    ],
+    services: ["Mobile App", "Product Design", "Android Distribution", "UI/UX Design"],
+    tech: ["Android", "Play Store", "TypeScript", "React Native"],
+    results: [
+      { value: "1", label: "Android app listing" },
+      { value: "100%", label: "shareable install path" },
+      { value: "3", label: "simple entry points" },
+    ],
+    year: "2025",
+    client: "Bhandari Pariwar",
+    path: "/works/bhandari-pariwar-app",
   },
 ];
 

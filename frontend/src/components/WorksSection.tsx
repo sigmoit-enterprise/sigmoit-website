@@ -1,6 +1,7 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import React, { useRef, useState, useEffect, useCallback } from "react";
+import { Link } from "react-router-dom";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import { CASE_STUDIES } from "../data/caseStudies";
 
 interface ProjectCard {
   src: string;
@@ -9,62 +10,21 @@ interface ProjectCard {
   title: string;
   category: string;
   description: string;
-  /** Destination of the card — a real case-study page per project. */
-  to: string;
+  /** Destination of the card — the live project URL. */
+  href: string;
 }
 
 /**
- * Each tile links to its own case-study page (see src/data/caseStudies.ts),
- * so the homepage passes link equity to pages that rank for project names
- * instead of self-linking to /works.
+ * Each tile links directly to the live project URL.
  */
-const PROJECTS: ProjectCard[] = [
-  {
-    src: '/project-images/ecommerce.png',
-    alt: 'E-commerce storefront with product catalogue and checkout, built by SigmoIT',
-    title: 'A complete online storefront',
-    category: 'E-Commerce',
-    description:
-      'A full-featured commerce platform with product catalogues, cart and checkout flows, secure payment integration, and an admin dashboard for managing inventory and orders.',
-    to: '/works/svlc-law-firm',
-  },
-  {
-    src: '/project-images/fooddelivary.png',
-    alt: 'Food delivery app screen showing live order tracking, developed by SigmoIT',
-    title: 'Order tracking from kitchen to door',
-    category: 'Food Delivery',
-    description:
-      'A food delivery experience covering restaurant listings, live order tracking, and a streamlined checkout, built to stay fast and responsive on mobile networks.',
-    to: '/works/next-stop-nepal',
-  },
-  {
-    src: '/project-images/my-personal-tutors.png',
-    alt: 'Tutoring marketplace matching students with instructors, built by SigmoIT',
-    title: 'Connecting students with tutors',
-    category: 'EdTech',
-    description:
-      'A tutoring marketplace that matches students to instructors, with profile discovery, scheduling, and session management built around a clean and approachable interface.',
-    to: '/works/tutor-connect',
-  },
-  {
-    src: '/project-images/Rising%20Diamond.jpg',
-    alt: 'Rising Diamond corporate website homepage designed by SigmoIT',
-    title: 'A polished brand presence',
-    category: 'Corporate Website',
-    description:
-      'A corporate web presence designed to communicate credibility, with a considered visual identity, clear service positioning, and content structured for search visibility.',
-    to: '/works/rising-diamond',
-  },
-  {
-    src: '/project-images/terminalwebsite.png',
-    alt: 'Terminal-inspired web application interface engineered by SigmoIT',
-    title: 'A developer-first interface',
-    category: 'Web Application',
-    description:
-      'A terminal-inspired web interface that turns a technical product into something tactile and memorable, pairing an unconventional aesthetic with genuine usability.',
-    to: '/works/terminal-ui',
-  },
-];
+const PROJECTS: ProjectCard[] = CASE_STUDIES.map((study) => ({
+  src: study.image,
+  alt: `${study.name} website screenshot designed by SigmoIT`,
+  title: study.name,
+  category: study.category,
+  description: study.description,
+  href: study.liveUrl ?? study.path,
+}));
 
 export const WorksSection: React.FC = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -80,12 +40,12 @@ export const WorksSection: React.FC = () => {
 
   useEffect(() => {
     syncArrows();
-    window.addEventListener('resize', syncArrows);
-    return () => window.removeEventListener('resize', syncArrows);
+    window.addEventListener("resize", syncArrows);
+    return () => window.removeEventListener("resize", syncArrows);
   }, [syncArrows]);
 
   const scrollBy = (direction: -1 | 1) => {
-    scrollRef.current?.scrollBy({ left: direction * 320, behavior: 'smooth' });
+    scrollRef.current?.scrollBy({ left: direction * 320, behavior: "smooth" });
   };
 
   return (
@@ -102,24 +62,32 @@ export const WorksSection: React.FC = () => {
           <span className="block text-3xl md:text-5xl font-normal text-gray-600">
             Selected Work, Built
           </span>
-          <span className="block text-4xl md:text-6xl text-sigmo-green">For Real Businesses</span>
+          <span className="block text-4xl md:text-6xl text-sigmo-green">
+            For Real Businesses
+          </span>
         </h2>
         <p className="mt-6 max-w-xl text-gray-500 font-light text-sm md:text-base leading-relaxed">
-          A look at some of the products and platforms we have designed, engineered, and shipped.
+          A look at some of the products and platforms we have designed,
+          engineered, and shipped.
         </p>
       </div>
 
       <div
         ref={scrollRef}
         onScroll={syncArrows}
-        className="flex gap-6 overflow-x-auto scroll-smooth py-10 px-6 md:px-12 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="flex gap-6 overflow-x-auto scroll-smooth py-10 px-6 md:px-12 scrollbar-none"
       >
-        <div className="shrink-0 w-0 md:w-[max(0px,calc((100vw-80rem)/2))]" aria-hidden="true" />
+        <div
+          className="shrink-0 w-0 md:w-[max(0px,calc((100vw-80rem)/2))]"
+          aria-hidden="true"
+        />
         {PROJECTS.map((card) => (
-          <Link
+          <a
             key={card.src}
-            to={card.to}
-            className="group relative shrink-0 w-64 md:w-80 h-80 md:h-[28rem] rounded-3xl overflow-hidden bg-gray-100 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-sigmo-green block"
+            href={card.href}
+            target="_self"
+            rel="noreferrer"
+            className="group relative shrink-0 w-64 md:w-80 h-80 md:h-112 rounded-3xl overflow-hidden bg-gray-100 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-sigmo-green block"
           >
             <img
               src={card.src}
@@ -133,7 +101,9 @@ export const WorksSection: React.FC = () => {
             {/* Hover overlay and text */}
             <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-6 md:p-8 z-10">
               <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 ease-out">
-                <p className="text-xs font-bold tracking-widest uppercase text-sigmo-green">{card.category}</p>
+                <p className="text-xs font-bold tracking-widest uppercase text-sigmo-green">
+                  {card.category}
+                </p>
                 <h3 className="mt-2 font-rajdhani text-xl md:text-2xl font-bold text-white leading-snug">
                   {card.title}
                 </h3>
@@ -142,7 +112,7 @@ export const WorksSection: React.FC = () => {
                 </p>
               </div>
             </div>
-          </Link>
+          </a>
         ))}
       </div>
 
