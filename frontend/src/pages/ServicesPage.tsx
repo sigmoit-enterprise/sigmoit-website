@@ -65,6 +65,20 @@ const SERVICES: Service[] = [
     isSpecial: true, // Special highlighted red styling by default
   },
   {
+    title: "Graphic\nDesign",
+    description:
+      "We create visually stunning designs that captivate and inspire",
+  },
+  {
+    title: "E-commerce\nSolutions",
+    description:
+      "We build scalable and secure e-commerce platforms that drive sales",
+  },
+  {
+    title: "Logo\nDesign",
+    description: "We create memorable logos that represent your brand identity",
+  },
+  {
     title: "Mobile App\nDevelopment",
     description: "From native to cross-platform: integration made seamless",
   },
