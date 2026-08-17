@@ -1,4 +1,4 @@
-import type { LeadStatus } from "./types";
+import type { CallIndicator, LeadPriority, LeadStatus } from "./types";
 
 export const STATUS_LABELS: Record<LeadStatus, string> = {
   new: "New",
@@ -16,6 +16,43 @@ export const STATUS_TONES: Record<LeadStatus, string> = {
   no_response: "bg-orange-50 text-orange-700 ring-orange-200",
   not_interested: "bg-rose-50 text-rose-700 ring-rose-200",
   converted: "bg-emerald-50 text-emerald-700 ring-emerald-200",
+};
+
+export const CALL_STATUS_LABELS: Record<CallIndicator, string> = {
+  pending: "Pending",
+  completed: "Completed",
+};
+
+export const CALL_STATUS_TONES: Record<CallIndicator, string> = {
+  pending: "bg-amber-50 text-amber-700 ring-amber-200",
+  completed: "bg-emerald-50 text-emerald-700 ring-emerald-200",
+};
+
+export const PRIORITY_LABELS: Record<LeadPriority, string> = {
+  high: "High",
+  medium: "Medium",
+  low: "Low",
+  not_interested: "Not Interested",
+  dead: "Dead",
+  converted: "Converted",
+};
+
+export const PRIORITY_TONES: Record<LeadPriority, string> = {
+  high: "bg-rose-50 text-rose-700 ring-rose-200",
+  medium: "bg-amber-50 text-amber-700 ring-amber-200",
+  low: "bg-sky-50 text-sky-700 ring-sky-200",
+  not_interested: "bg-slate-100 text-slate-600 ring-slate-200",
+  dead: "bg-zinc-100 text-zinc-700 ring-zinc-300",
+  converted: "bg-emerald-50 text-emerald-700 ring-emerald-200",
+};
+
+export const PRIORITY_FLAG_COLORS: Record<LeadPriority, string> = {
+  high: "text-rose-500 fill-rose-500",
+  medium: "text-amber-500 fill-amber-500",
+  low: "text-sky-500 fill-sky-500",
+  not_interested: "text-slate-400 fill-slate-400",
+  dead: "text-zinc-600 fill-zinc-600",
+  converted: "text-emerald-500 fill-emerald-500",
 };
 
 export const SOURCE_LABELS: Record<string, string> = {

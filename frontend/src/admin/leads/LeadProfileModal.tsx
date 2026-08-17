@@ -46,6 +46,8 @@ export function LeadProfileModal({
     setData({
       ...lead,
       status: result.lead.status,
+      callStatus: result.lead.callStatus ?? "completed",
+      priority: result.lead.priority ?? lead.priority,
       nextFollowupDate: result.lead.nextFollowupDate,
       updatedAt: result.lead.updatedAt,
       callLogs: [result.callLog, ...calls],
@@ -153,6 +155,8 @@ export function LeadProfileModal({
               <CallLogPanel
                 leadId={lead.id}
                 calls={calls}
+                initialPriority={lead.priority}
+                initialCallStatus={lead.callStatus}
                 onLogged={handleCallLogged}
               />
             )}

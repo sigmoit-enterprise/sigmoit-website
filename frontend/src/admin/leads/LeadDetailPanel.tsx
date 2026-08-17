@@ -1,9 +1,14 @@
 import { useState } from "react";
-import { Building2 } from "lucide-react";
-import type { Lead, LeadStatus } from "../lib/types";
-import { LEAD_STATUSES, LEAD_SOURCES } from "../lib/types";
+import { Building2, CheckCircle2, Clock, Flag } from "lucide-react";
+import type { CallIndicator, Lead, LeadPriority, LeadStatus } from "../lib/types";
+import { CALL_INDICATORS, LEAD_PRIORITIES, LEAD_STATUSES, LEAD_SOURCES } from "../lib/types";
 import { leadsApi } from "../lib/api";
 import {
+  CALL_STATUS_LABELS,
+  CALL_STATUS_TONES,
+  PRIORITY_FLAG_COLORS,
+  PRIORITY_LABELS,
+  PRIORITY_TONES,
   SOURCE_LABELS,
   STATUS_LABELS,
   STATUS_TONES,
@@ -27,6 +32,8 @@ import {
 import { useToast } from "../ui/Toast";
 
 const STATUS_OPTIONS = LEAD_STATUSES.map((s) => ({ value: s, label: STATUS_LABELS[s] }));
+const CALL_STATUS_OPTIONS = CALL_INDICATORS.map((c) => ({ value: c, label: CALL_STATUS_LABELS[c] }));
+const PRIORITY_OPTIONS = LEAD_PRIORITIES.map((p) => ({ value: p, label: PRIORITY_LABELS[p] }));
 const SOURCE_OPTIONS = LEAD_SOURCES.map((s) => ({ value: s, label: SOURCE_LABELS[s] }));
 const COUNTRY_OPTIONS = [
   { value: "Nepal", label: "Nepal" },
@@ -34,12 +41,41 @@ const COUNTRY_OPTIONS = [
 ];
 
 export function LeadReadView({ lead }: { lead: Lead }) {
+  const priority = lead.priority ?? "medium";
+  const callStatus = lead.callStatus ?? (lead.status === "new" ? "pending" : "completed");
+
   return (
     <div className="space-y-7">
       <section>
-        <div className="mb-4 flex items-center gap-3">
+        <div className="mb-4 flex flex-wrap items-center gap-3">
           <SectionHeading>Business Detail</SectionHeading>
-          <Badge className={STATUS_TONES[lead.status]}>{STATUS_LABELS[lead.status]}</Badge>
+          
+          <div className="flex items-center gap-2">
+            {/* Priority Indicator Pill */}
+            <div
+              className={`inline-flex size-7 items-center justify-center rounded-full ring-1 shadow-xs transition-transform hover:scale-110 cursor-help ${PRIORITY_TONES[priority]}`}
+              title={`Priority: ${PRIORITY_LABELS[priority]}`}
+            >
+              <Flag className={`size-3.5 ${PRIORITY_FLAG_COLORS[priority]}`} />
+            </div>
+
+            {/* Call Status Indicator Pill */}
+            <div
+              className={`inline-flex size-7 items-center justify-center rounded-full ring-1 shadow-xs transition-transform hover:scale-110 cursor-help ${
+                callStatus === "completed" ? CALL_STATUS_TONES.completed : CALL_STATUS_TONES.pending
+              }`}
+              title={`Call Status: ${CALL_STATUS_LABELS[callStatus]}`}
+            >
+              {callStatus === "completed" ? (
+                <CheckCircle2 className="size-3.5 text-emerald-600" />
+              ) : (
+                <Clock className="size-3.5 text-amber-600" />
+              )}
+            </div>
+
+            {/* Lead Status Badge */}
+            <Badge className={STATUS_TONES[lead.status]}>{STATUS_LABELS[lead.status]}</Badge>
+          </div>
         </div>
 
         <div className="flex gap-6">
@@ -76,10 +112,12 @@ export function LeadReadView({ lead }: { lead: Lead }) {
       <hr className="border-slate-200" />
 
       <section>
-        <SectionHeading>Cluster Detail</SectionHeading>
+        <SectionHeading>Cluster & Call Details</SectionHeading>
         <dl className="mt-4 grid gap-x-6 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
           <DetailItem label="Date of Lead Generation" value={formatDate(lead.createdAt)} />
           <DetailItem label="Cluster Name" value={dash(lead.cluster?.name)} />
+          <DetailItem label="Priority" value={PRIORITY_LABELS[priority]} />
+          <DetailItem label="Call Status" value={CALL_STATUS_LABELS[callStatus]} />
           <DetailItem label="Source" value={dash(SOURCE_LABELS[lead.source] ?? lead.source)} />
           <DetailItem label="Lead By" value={dash(lead.leadBy?.name)} />
           <DetailItem
@@ -121,6 +159,8 @@ interface EditForm {
   locationFreeText: string;
   landmarkArea: string;
   description: string;
+  priority: LeadPriority;
+  callStatus: CallIndicator;
   status: LeadStatus;
   source: string;
   nextFollowupDate: string;
@@ -143,6 +183,8 @@ function toForm(lead: Lead): EditForm {
     locationFreeText: lead.locationFreeText ?? "",
     landmarkArea: lead.landmarkArea ?? "",
     description: lead.description ?? "",
+    priority: lead.priority ?? "medium",
+    callStatus: lead.callStatus ?? (lead.status === "new" ? "pending" : "completed"),
     status: lead.status,
     source: lead.source,
     nextFollowupDate: toDateInput(lead.nextFollowupDate),
@@ -201,6 +243,8 @@ export function LeadEditForm({
         cityMunicipality: isNepal ? orNull(form.cityMunicipality) : null,
         locationFreeText: isNepal ? null : orNull(form.locationFreeText),
         landmarkArea: orNull(form.landmarkArea),
+        priority: form.priority,
+        callStatus: form.callStatus,
         nextFollowupDate: form.nextFollowupDate
           ? dateInputToIso(form.nextFollowupDate)
           : null,
@@ -391,15 +435,25 @@ export function LeadEditForm({
       </section>
 
       <section>
-        <SectionHeading>Cluster Details</SectionHeading>
+        <SectionHeading>Cluster & Call Details</SectionHeading>
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <Field label="Date of Lead Generation">
-            <Input value={formatDate(lead.createdAt)} disabled readOnly />
+          <Field label="Priority" htmlFor="ef-priority">
+            <Select
+              id="ef-priority"
+              value={form.priority}
+              onChange={(e) => set("priority", e.target.value as LeadPriority)}
+              options={PRIORITY_OPTIONS}
+            />
           </Field>
-          <Field label="Cluster Name" hint="auto-assigned">
-            <Input value={lead.cluster?.name ?? "Unassigned"} disabled readOnly />
+          <Field label="Call Status" htmlFor="ef-call-status">
+            <Select
+              id="ef-call-status"
+              value={form.callStatus}
+              onChange={(e) => set("callStatus", e.target.value as CallIndicator)}
+              options={CALL_STATUS_OPTIONS}
+            />
           </Field>
-          <Field label="Status" htmlFor="ef-status">
+          <Field label="Lead Status" htmlFor="ef-status">
             <Select
               id="ef-status"
               value={form.status}
@@ -407,6 +461,12 @@ export function LeadEditForm({
               onChange={(e) => set("status", e.target.value as LeadStatus)}
               options={STATUS_OPTIONS}
             />
+          </Field>
+          <Field label="Date of Lead Generation">
+            <Input value={formatDate(lead.createdAt)} disabled readOnly />
+          </Field>
+          <Field label="Cluster Name" hint="auto-assigned">
+            <Input value={lead.cluster?.name ?? "Unassigned"} disabled readOnly />
           </Field>
           <Field label="Source" htmlFor="ef-source">
             <Select
@@ -448,8 +508,8 @@ export function LeadEditForm({
 
       {!isAdmin && (
         <p className="rounded-lg bg-sky-50 px-3 py-2 text-xs text-sky-800 ring-1 ring-sky-200">
-          As a BD employee you can update contact, location, and next follow-up date fields.
-          Business name, status, and source are managed by an administrator.
+          As a BD employee you can update contact, location, priority, call status, and next follow-up date fields.
+          Business name, lead status, and source are managed by an administrator.
         </p>
       )}
 

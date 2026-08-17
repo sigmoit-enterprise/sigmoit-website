@@ -8,6 +8,16 @@ export type LeadStatus =
   | "not_interested"
   | "converted";
 
+export type CallIndicator = "pending" | "completed";
+
+export type LeadPriority =
+  | "high"
+  | "medium"
+  | "low"
+  | "not_interested"
+  | "dead"
+  | "converted";
+
 export type LeadSource = "manual" | "website" | "csv_import";
 export type Country = "Nepal" | "International";
 export type InquiryStatus = "pending_review" | "promoted" | "discarded";
@@ -18,6 +28,17 @@ export const LEAD_STATUSES: LeadStatus[] = [
   "follow_up_scheduled",
   "no_response",
   "not_interested",
+  "converted",
+];
+
+export const CALL_INDICATORS: CallIndicator[] = ["pending", "completed"];
+
+export const LEAD_PRIORITIES: LeadPriority[] = [
+  "high",
+  "medium",
+  "low",
+  "not_interested",
+  "dead",
   "converted",
 ];
 
@@ -86,6 +107,8 @@ export interface Lead {
   clusterId: string | null;
   cluster: { id: string; name: string } | null;
   status: LeadStatus;
+  callStatus?: CallIndicator;
+  priority?: LeadPriority;
   nextFollowupDate: string | null;
   createdAt: string;
   updatedAt: string;

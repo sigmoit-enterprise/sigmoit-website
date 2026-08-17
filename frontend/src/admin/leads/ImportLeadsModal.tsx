@@ -7,13 +7,15 @@ import { Modal } from "../ui/Modal";
 import { useToast } from "../ui/Toast";
 
 const TEMPLATE_HEADER =
-  "businessName,businessType,contactPersonName,contact1,contact2,email1,email2,country,province,district,cityMunicipality,locationFreeText,landmarkArea,description,status,nextFollowupDate";
+  "businessName,businessType,contactPersonName,contact1,contact2,email1,email2,country,province,district,cityMunicipality,locationFreeText,landmarkArea,description,priority,callStatus,status,nextFollowupDate";
 
 const SAMPLE_ROW =
-  "Acme Pvt Ltd,IT Services,John Doe,9841000000,,john@acme.com,,Nepal,Bagmati,Kathmandu,Kathmandu,New Baneshwor,,Software development company,new,2026-08-05";
+  "Acme Pvt Ltd,IT Services,John Doe,9841000000,,john@acme.com,,Nepal,Bagmati,Kathmandu,Kathmandu,New Baneshwor,,Software development company,high,pending,new,2026-08-05";
 
 const COLUMN_HINTS = [
   "businessName, businessType — required",
+  "priority — high, medium, low, not_interested, dead, converted",
+  "callStatus — pending, completed",
   "province / district — use names (e.g. Bagmati / Kathmandu)",
   "country — Nepal or International",
   "status — new, contacted, follow_up_scheduled, no_response, not_interested, converted",

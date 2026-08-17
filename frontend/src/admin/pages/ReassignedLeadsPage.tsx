@@ -1,6 +1,12 @@
 import { useCallback, useState } from "react";
+import { CheckCircle2, Clock, Flag } from "lucide-react";
 import { leadsApi } from "../lib/api";
 import {
+  CALL_STATUS_LABELS,
+  CALL_STATUS_TONES,
+  PRIORITY_FLAG_COLORS,
+  PRIORITY_LABELS,
+  PRIORITY_TONES,
   SOURCE_LABELS,
   STATUS_LABELS,
   STATUS_TONES,
@@ -66,6 +72,8 @@ export function ReassignedLeadsPage() {
                 <Th>Business</Th>
                 <Th>Contact</Th>
                 <Th>Cluster</Th>
+                <Th>Priority</Th>
+                <Th>Call</Th>
                 <Th>Follow-up</Th>
                 <Th>Last call</Th>
                 <Th>Source</Th>
@@ -74,6 +82,9 @@ export function ReassignedLeadsPage() {
             <tbody>
               {data.map((lead) => {
                 const lastCall = lead.callLogs?.[0];
+                const priority = lead.priority ?? "medium";
+                const callStatus = lead.callStatus ?? "pending";
+
                 return (
                   <Tr
                     key={lead.id}
@@ -92,6 +103,25 @@ export function ReassignedLeadsPage() {
                       <p className="text-xs text-slate-500">{dash(lead.contact1)}</p>
                     </Td>
                     <Td className="text-slate-600">{dash(lead.cluster?.name)}</Td>
+                    <Td>
+                      <Badge className={PRIORITY_TONES[priority]}>
+                        <Flag className={`mr-1 size-3 shrink-0 ${PRIORITY_FLAG_COLORS[priority]}`} />
+                        {PRIORITY_LABELS[priority]}
+                      </Badge>
+                    </Td>
+                    <Td>
+                      {callStatus === "completed" ? (
+                        <Badge className={CALL_STATUS_TONES.completed}>
+                          <CheckCircle2 className="mr-1 size-3 shrink-0 text-emerald-600" />
+                          {CALL_STATUS_LABELS.completed}
+                        </Badge>
+                      ) : (
+                        <Badge className={CALL_STATUS_TONES.pending}>
+                          <Clock className="mr-1 size-3 shrink-0 text-amber-600" />
+                          {CALL_STATUS_LABELS.pending}
+                        </Badge>
+                      )}
+                    </Td>
                     <Td className="whitespace-nowrap font-semibold text-amber-700">
                       {formatDate(lead.nextFollowupDate)}
                     </Td>

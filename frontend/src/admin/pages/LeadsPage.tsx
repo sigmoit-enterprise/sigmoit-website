@@ -1,9 +1,23 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Download, Plus, RotateCcw, Search, Upload } from "lucide-react";
+import { CheckCircle2, Clock, Download, Eye, Flag, Plus, RotateCcw, Search, Upload } from "lucide-react";
 import { clustersApi, leadsApi, usersApi, type LeadFilters } from "../lib/api";
-import { LEAD_SOURCES, LEAD_STATUSES, type Lead, type LeadStatus } from "../lib/types";
 import {
+  CALL_INDICATORS,
+  LEAD_PRIORITIES,
+  LEAD_SOURCES,
+  LEAD_STATUSES,
+  type CallIndicator,
+  type Lead,
+  type LeadPriority,
+  type LeadStatus,
+} from "../lib/types";
+import {
+  CALL_STATUS_LABELS,
+  CALL_STATUS_TONES,
+  PRIORITY_FLAG_COLORS,
+  PRIORITY_LABELS,
+  PRIORITY_TONES,
   SOURCE_LABELS,
   STATUS_LABELS,
   STATUS_TONES,
@@ -33,6 +47,8 @@ import { CreateLeadModal } from "../leads/CreateLeadModal";
 import { ImportLeadsModal } from "../leads/ImportLeadsModal";
 
 const STATUS_OPTIONS = LEAD_STATUSES.map((s) => ({ value: s, label: STATUS_LABELS[s] }));
+const CALL_STATUS_OPTIONS = CALL_INDICATORS.map((c) => ({ value: c, label: CALL_STATUS_LABELS[c] }));
+const PRIORITY_OPTIONS = LEAD_PRIORITIES.map((p) => ({ value: p, label: PRIORITY_LABELS[p] }));
 const SOURCE_OPTIONS = LEAD_SOURCES.map((s) => ({ value: s, label: SOURCE_LABELS[s] }));
 const COUNTRY_OPTIONS = [
   { value: "Nepal", label: "Nepal" },
@@ -42,6 +58,8 @@ const COUNTRY_OPTIONS = [
 interface FilterState {
   q: string;
   status: string;
+  callStatus: string;
+  priority: string;
   source: string;
   country: string;
   clusterId: string;
@@ -55,6 +73,8 @@ interface FilterState {
 const NO_FILTERS: FilterState = {
   q: "",
   status: "",
+  callStatus: "",
+  priority: "",
   source: "",
   country: "",
   clusterId: "",
@@ -108,6 +128,8 @@ export function LeadsPage() {
       limit: 25,
       q: debouncedQ.trim() || undefined,
       status: (filters.status || undefined) as LeadStatus | undefined,
+      callStatus: (filters.callStatus || undefined) as CallIndicator | undefined,
+      priority: (filters.priority || undefined) as LeadPriority | undefined,
       source: filters.source || undefined,
       country: filters.country || undefined,
       clusterId: filters.clusterId || undefined,
@@ -129,6 +151,8 @@ export function LeadsPage() {
   }, [
     debouncedQ,
     filters.status,
+    filters.callStatus,
+    filters.priority,
     filters.source,
     filters.country,
     filters.clusterId,
@@ -210,7 +234,25 @@ export function LeadsPage() {
             </div>
           </Field>
 
-          <Field label="Status">
+          <Field label="Priority">
+            <Select
+              value={filters.priority}
+              onChange={(e) => set("priority", e.target.value)}
+              placeholder="All priorities"
+              options={PRIORITY_OPTIONS}
+            />
+          </Field>
+
+          <Field label="Call Status">
+            <Select
+              value={filters.callStatus}
+              onChange={(e) => set("callStatus", e.target.value)}
+              placeholder="All call statuses"
+              options={CALL_STATUS_OPTIONS}
+            />
+          </Field>
+
+          <Field label="Lead Status">
             <Select
               value={filters.status}
               onChange={(e) => set("status", e.target.value)}
@@ -340,9 +382,12 @@ export function LeadsPage() {
                   <Th>Contact</Th>
                   <Th>Location</Th>
                   <Th>Cluster</Th>
+                  <Th>Priority</Th>
+                  <Th>Call</Th>
                   <Th>Status</Th>
                   <Th>Next Follow-up</Th>
                   <Th>Source</Th>
+                  <Th className="text-right">Action</Th>
                 </tr>
               </thead>
               <tbody>
@@ -380,6 +425,9 @@ export function LeadsPage() {
 }
 
 function LeadRow({ lead, onOpen }: { lead: Lead; onOpen: () => void }) {
+  const priority = lead.priority ?? "medium";
+  const callStatus = lead.callStatus ?? (lead.status === "new" ? "pending" : "completed");
+
   return (
     <Tr interactive onDoubleClick={onOpen} title="Double-click to open profile">
       <Td>
@@ -393,6 +441,25 @@ function LeadRow({ lead, onOpen }: { lead: Lead; onOpen: () => void }) {
       <Td className="max-w-48 text-slate-600">{locationLabel(lead)}</Td>
       <Td className="text-slate-600">{dash(lead.cluster?.name)}</Td>
       <Td>
+        <Badge className={PRIORITY_TONES[priority]}>
+          <Flag className={`mr-1 size-3 shrink-0 ${PRIORITY_FLAG_COLORS[priority]}`} />
+          {PRIORITY_LABELS[priority]}
+        </Badge>
+      </Td>
+      <Td>
+        {callStatus === "completed" ? (
+          <Badge className={CALL_STATUS_TONES.completed}>
+            <CheckCircle2 className="mr-1 size-3 shrink-0 text-emerald-600" />
+            {CALL_STATUS_LABELS.completed}
+          </Badge>
+        ) : (
+          <Badge className={CALL_STATUS_TONES.pending}>
+            <Clock className="mr-1 size-3 shrink-0 text-amber-600" />
+            {CALL_STATUS_LABELS.pending}
+          </Badge>
+        )}
+      </Td>
+      <Td>
         <Badge className={STATUS_TONES[lead.status]}>{STATUS_LABELS[lead.status]}</Badge>
       </Td>
       <Td className="whitespace-nowrap text-slate-600">
@@ -400,6 +467,19 @@ function LeadRow({ lead, onOpen }: { lead: Lead; onOpen: () => void }) {
       </Td>
       <Td>
         <Badge>{SOURCE_LABELS[lead.source] ?? lead.source}</Badge>
+      </Td>
+      <Td className="text-right">
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onOpen();
+          }}
+          className="rounded-md p-1 text-slate-400 transition-colors hover:bg-slate-100 hover:text-sigmo-green"
+          title="Open Lead Profile"
+        >
+          <Eye className="size-4" />
+        </button>
       </Td>
     </Tr>
   );

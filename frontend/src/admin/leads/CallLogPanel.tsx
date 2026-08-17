@@ -1,34 +1,48 @@
 import { useState } from "react";
 import { Send } from "lucide-react";
 import { callsApi } from "../lib/api";
-import type { CallLog, Lead, LeadStatus } from "../lib/types";
+import type { CallIndicator, CallLog, Lead, LeadPriority, LeadStatus } from "../lib/types";
 import {
+  CALL_INDICATORS,
+  LEAD_PRIORITIES,
+  LEAD_STATUSES,
+} from "../lib/types";
+import {
+  CALL_STATUS_LABELS,
   EMPTY,
+  PRIORITY_LABELS,
   STATUS_LABELS,
   STATUS_TONES,
   dateInputToIso,
   formatDate,
   formatDateTime,
 } from "../lib/format";
-import { LEAD_STATUSES } from "../lib/types";
 import { errorMessage } from "../lib/useAsync";
 import { Avatar, Badge, Button, Field, Select, Textarea, Input } from "../ui/primitives";
 import { useToast } from "../ui/Toast";
 
 const STATUS_OPTIONS = LEAD_STATUSES.map((s) => ({ value: s, label: STATUS_LABELS[s] }));
+const CALL_STATUS_OPTIONS = CALL_INDICATORS.map((c) => ({ value: c, label: CALL_STATUS_LABELS[c] }));
+const PRIORITY_OPTIONS = LEAD_PRIORITIES.map((p) => ({ value: p, label: PRIORITY_LABELS[p] }));
 
 export function CallLogPanel({
   leadId,
   calls,
+  initialPriority,
+  initialCallStatus,
   onLogged,
 }: {
   leadId: string;
   calls: CallLog[];
+  initialPriority?: LeadPriority;
+  initialCallStatus?: CallIndicator;
   onLogged: (result: { callLog: CallLog; lead: Lead }) => void;
 }) {
   const toast = useToast();
   const [summary, setSummary] = useState("");
   const [status, setStatus] = useState<LeadStatus>("contacted");
+  const [callStatus, setCallStatus] = useState<CallIndicator>(initialCallStatus ?? "completed");
+  const [priority, setPriority] = useState<LeadPriority>(initialPriority ?? "medium");
   const [followup, setFollowup] = useState("");
   const [busy, setBusy] = useState(false);
 
@@ -43,6 +57,8 @@ export function CallLogPanel({
       const result = await callsApi.create(leadId, {
         statusAtCall: status,
         summary: summary.trim(),
+        callStatus,
+        priority,
         nextFollowupDate: needsFollowup ? dateInputToIso(followup) : null,
       });
       setSummary("");
@@ -59,7 +75,7 @@ export function CallLogPanel({
   return (
     <div className="flex h-full min-h-0 flex-col border-l-2 border-sigmo-green bg-white">
       <header className="border-b border-slate-200 px-5 py-4">
-        <h3 className="text-base font-bold tracking-tight text-slate-900">Call Log</h3>
+        <h3 className="text-base font-bold tracking-tight text-slate-900">Comment Section</h3>
         <p className="mt-0.5 text-xs text-slate-500">
           {calls.length} {calls.length === 1 ? "entry" : "entries"}
         </p>
@@ -76,8 +92,24 @@ export function CallLogPanel({
       </div>
 
       <form onSubmit={submit} className="space-y-3 border-t border-slate-200 px-4 py-4">
-        <div className="grid grid-cols-2 gap-3">
-          <Field label="Status at call" htmlFor="call-status">
+        <div className="grid grid-cols-2 gap-2.5">
+          <Field label="Call Status" htmlFor="call-indicator">
+            <Select
+              id="call-indicator"
+              value={callStatus}
+              onChange={(e) => setCallStatus(e.target.value as CallIndicator)}
+              options={CALL_STATUS_OPTIONS}
+            />
+          </Field>
+          <Field label="Priority" htmlFor="call-priority">
+            <Select
+              id="call-priority"
+              value={priority}
+              onChange={(e) => setPriority(e.target.value as LeadPriority)}
+              options={PRIORITY_OPTIONS}
+            />
+          </Field>
+          <Field label="Lead Status" htmlFor="call-status">
             <Select
               id="call-status"
               value={status}
@@ -105,7 +137,7 @@ export function CallLogPanel({
           <Textarea
             rows={2}
             maxLength={5000}
-            placeholder="Write a comment ..."
+            placeholder="Write a call summary or note..."
             value={summary}
             onChange={(e) => setSummary(e.target.value)}
             aria-label="Call summary"

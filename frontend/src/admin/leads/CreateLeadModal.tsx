@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { leadsApi, type CreateLeadInput } from "../lib/api";
+import { CALL_INDICATORS, LEAD_PRIORITIES, type CallIndicator, type LeadPriority } from "../lib/types";
+import { CALL_STATUS_LABELS, PRIORITY_LABELS } from "../lib/format";
 import { useDistricts, useProvinces } from "../lib/useLocations";
 import { errorMessage } from "../lib/useAsync";
 import { Button, Field, Input, SectionHeading, Select, Textarea } from "../ui/primitives";
@@ -10,6 +12,9 @@ const COUNTRY_OPTIONS = [
   { value: "Nepal", label: "Nepal" },
   { value: "International", label: "International" },
 ];
+
+const CALL_STATUS_OPTIONS = CALL_INDICATORS.map((c) => ({ value: c, label: CALL_STATUS_LABELS[c] }));
+const PRIORITY_OPTIONS = LEAD_PRIORITIES.map((p) => ({ value: p, label: PRIORITY_LABELS[p] }));
 
 const INITIAL = {
   businessName: "",
@@ -27,6 +32,8 @@ const INITIAL = {
   locationFreeText: "",
   landmarkArea: "",
   description: "",
+  priority: "medium" as LeadPriority,
+  callStatus: "pending" as CallIndicator,
 };
 
 function orNull(value: string): string | null {
@@ -95,6 +102,8 @@ export function CreateLeadModal({
         locationFreeText: isNepal ? null : orNull(form.locationFreeText),
         landmarkArea: orNull(form.landmarkArea),
         description: orNull(form.description),
+        priority: form.priority,
+        callStatus: form.callStatus,
         source: "manual",
       };
 
@@ -200,6 +209,28 @@ export function CreateLeadModal({
                 maxLength={100}
                 value={form.email2}
                 onChange={(e) => set("email2", e.target.value)}
+              />
+            </Field>
+          </div>
+        </section>
+
+        <section>
+          <SectionHeading>Priority & Call Status</SectionHeading>
+          <div className="mt-3 grid gap-4 sm:grid-cols-2">
+            <Field label="Priority" htmlFor="cl-priority">
+              <Select
+                id="cl-priority"
+                value={form.priority}
+                onChange={(e) => set("priority", e.target.value as LeadPriority)}
+                options={PRIORITY_OPTIONS}
+              />
+            </Field>
+            <Field label="Call Status" htmlFor="cl-call-status">
+              <Select
+                id="cl-call-status"
+                value={form.callStatus}
+                onChange={(e) => set("callStatus", e.target.value as CallIndicator)}
+                options={CALL_STATUS_OPTIONS}
               />
             </Field>
           </div>

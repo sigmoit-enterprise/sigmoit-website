@@ -1,5 +1,6 @@
 import type {
   AssignmentBoardRow,
+  CallIndicator,
   CallLog,
   ClusterDetail,
   ClusterSummary,
@@ -8,6 +9,7 @@ import type {
   DuplicateCandidate,
   EmployeeDashboard,
   Lead,
+  LeadPriority,
   LeadStatus,
   MyCluster,
   Paged,
@@ -221,6 +223,8 @@ export interface LeadFilters {
   limit?: number;
   clusterId?: string;
   status?: LeadStatus;
+  callStatus?: CallIndicator;
+  priority?: LeadPriority;
   source?: string;
   country?: string;
   provinceId?: number;
@@ -248,6 +252,8 @@ export type CreateLeadInput = {
   landmarkArea?: string | null;
   description?: string | null;
   source?: string;
+  callStatus?: CallIndicator;
+  priority?: LeadPriority;
 };
 
 export interface LeadImportResult {
@@ -264,8 +270,15 @@ export const leadsApi = {
   get: (id: string) => request<Lead>(`/leads/${id}`),
   create: (input: CreateLeadInput) =>
     request<Lead>("/leads", { method: "POST", body: input }),
-  update: (id: string, input: Partial<CreateLeadInput> & { status?: LeadStatus; nextFollowupDate?: string | null }) =>
-    request<Lead>(`/leads/${id}`, { method: "PATCH", body: input }),
+  update: (
+    id: string,
+    input: Partial<CreateLeadInput> & {
+      status?: LeadStatus;
+      callStatus?: CallIndicator;
+      priority?: LeadPriority;
+      nextFollowupDate?: string | null;
+    },
+  ) => request<Lead>(`/leads/${id}`, { method: "PATCH", body: input }),
   remove: (id: string) =>
     request<{ message: string }>(`/leads/${id}`, {
       method: "DELETE",
@@ -294,7 +307,13 @@ export const callsApi = {
   list: (leadId: string) => request<CallLog[]>(`/leads/${leadId}/calls`),
   create: (
     leadId: string,
-    input: { statusAtCall: LeadStatus; summary: string; nextFollowupDate?: string | null },
+    input: {
+      statusAtCall: LeadStatus;
+      summary: string;
+      callStatus?: CallIndicator;
+      priority?: LeadPriority;
+      nextFollowupDate?: string | null;
+    },
   ) =>
     request<{ callLog: CallLog; lead: Lead }>(`/leads/${leadId}/calls`, {
       method: "POST",
