@@ -11,7 +11,7 @@ import {
 import { inquiriesApi } from "../admin/lib/api";
 import { errorMessage } from "../admin/lib/useAsync";
 
-const EMAIL = "thesigmoit@gmail.com";
+const EMAIL = "info@sigmoit.dev";
 const PHONE_NUMBER = "+9779822389427";
 const PHONE_DISPLAY = "+977 982-2389427";
 const WHATSAPP_LINK = "https://wa.me/9779822389427";

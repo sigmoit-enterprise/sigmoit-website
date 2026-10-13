@@ -21,7 +21,7 @@ export const StatsAndOrganizations: React.FC = () => {
     {
       id: 1,
       icon: <Clock className="w-12 h-12 stroke-[1.2] text-gray-300 group-hover:text-white transition-colors duration-300 mb-5" />,
-      target: 5,
+      target: 3,
       prefix: '',
       suffix: '+',
       label: 'Years of online creativity',

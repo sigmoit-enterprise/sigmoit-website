@@ -31,7 +31,7 @@ export const TWITTER_HANDLE = "";
 
 /** Name, Address, Phone — keep identical everywhere it appears online. */
 export const NAP = {
-  email: "thesigmoit@gmail.com",
+  email: "info@sigmoit.dev",
   phone: "+9779822389427",
   phoneDisplay: "+977 982-2389427",
   whatsapp: "https://wa.me/9779822389427",

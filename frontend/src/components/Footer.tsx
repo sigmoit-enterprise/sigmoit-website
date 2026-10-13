@@ -4,7 +4,7 @@ import { MapPin, AtSign, Phone } from 'lucide-react';
 import { WhatsAppIcon, FacebookIcon, InstagramIcon } from './BrandIcons';
 import { SigmoMark } from './SigmoMark';
 
-const EMAIL = 'thesigmoit@gmail.com';
+const EMAIL = 'info@sigmoit.dev';
 const PHONE_NUMBER = '+9779822389427';
 const PHONE_DISPLAY = '+977 982-2389427';
 const WHATSAPP_LINK = 'https://wa.me/9779822389427';

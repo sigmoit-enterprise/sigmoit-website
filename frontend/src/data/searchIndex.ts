@@ -287,7 +287,7 @@ export const SEARCH_INDEX: SearchEntry[] = [
   {
     id: "contact-email",
     title: "Email Us",
-    description: "thesigmoit@gmail.com",
+    description: "info@sigmoit.dev",
     category: "Contact",
     href: "/contact",
     keywords: ["email", "mail", "gmail"],

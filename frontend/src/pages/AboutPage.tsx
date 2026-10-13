@@ -171,7 +171,7 @@ export const AboutPage: React.FC = () => {
               <span className="absolute right-0 top-full h-5 w-5 bg-[radial-gradient(circle_20px_at_0_100%,transparent_20px,#f0f4f1_21px)] md:h-6 md:w-6 md:bg-[radial-gradient(circle_24px_at_0_100%,transparent_24px,#f0f4f1_25px)]" />
               <div className="flex items-baseline gap-3 md:gap-4">
                 <span className="font-sans text-6xl font-bold leading-none text-[#24a556] md:text-[6rem]">
-                  5
+                  3
                 </span>
                 <span className="text-sm leading-snug text-[#1b1f22]/70 md:text-lg">
                   Years of
